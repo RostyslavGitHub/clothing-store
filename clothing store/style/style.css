@@ -36,7 +36,24 @@ body{
 	overflow: hidden;
 	flex: 1;
 }
-
+.title{
+    font-size: 3rem;
+    margin: 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+.submit-input{
+    width: 100%;
+    max-width: 400px;
+    margin: 30px 0;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    display: block;
+}
 /* header */
 
 .header{
@@ -238,16 +255,14 @@ body{
 
 .content{
     width: 100%;
-    min-height: 100vh;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .content__title{
     text-align: center;
-    font-size: 3rem;
-    margin: 10px;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .content__row{
@@ -305,6 +320,7 @@ body{
     border: 2px solid #6100FF;
     border-radius: 50%;
     padding: 10px 40px;
+    background: #000;
     color: #ffffff;
     font-size: 2rem;
     text-transform: uppercase;
@@ -314,6 +330,41 @@ body{
 .content__button:hover{
     background-color: #6100FF;
 }
+
+/* track order */
+
+.track-order{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+}
+.track-order__form{
+    width: 100%;
+    max-width: 600px;
+}
+.track-order__map{
+    border: 1px solid #6100FF;
+    width: 100%;
+    max-width: 600px;
+    margin: 40px 0;
+    height: 402px;
+}
+.track-order__map iframe{
+    height: 400px;
+    width: 100%;
+}
+
+@media (min-width: 1335px) {
+    .track-order{
+       justify-content: space-between;
+
+    }
+    .track-order__form{
+        margin: 0 5% 0 0;
+    }
+}
+
 /* footer */
 
 .footer{
@@ -323,13 +374,14 @@ body{
     background-color: #6100FF;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
+    
 }
 
 .footer__email-subscription{
     border-top: 2px solid #6100FF;
     width: 100%;
     background-color: #000000;
-    padding: 20px 30px;
+    padding: 20px 5%;
 }
 
 .footer__title{
@@ -349,7 +401,7 @@ body{
     align-items: center;
 }
 
-.footer__input{
+.submit-input{
     width: 100%;
     max-width: 400px;
     margin: 30px 0;
@@ -374,7 +426,7 @@ body{
     border-top: 2px solid #6100FF;
     width: 100%;
     background-color: #000000;
-    padding: 10px;
+    padding: 10px 5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -386,6 +438,9 @@ body{
     margin: 2px;
     padding: 4px;
     display: block;
+}
+.footer__link:hover{
+    color: #6100FF
 }
 
 @media (min-width: 700px) {
