@@ -2,6 +2,7 @@
 
 *{padding: 0;margin: 0;border: 0;}
 *,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+* {min-width: 0;}
 :focus,:active{outline: none;}
 a:focus,a:active{outline: none;}
 nav,footer,header,aside{display: block;}
@@ -43,7 +44,7 @@ body{
     text-transform: uppercase;
     font-family: 'Montserrat', sans-serif;
 }
-.submit-input{
+.input{
     width: 100%;
     max-width: 400px;
     margin: 30px 0;
@@ -200,19 +201,21 @@ body{
 .hero{
     width: 100%;
     height: calc(100vh - 140px);
-    background: blueviolet;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url('../images/banner1.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
 .hero__title{
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 5rem;
-    color: #000000;
+    color: #6100FF;
     line-height: 1.6;
 }
 
@@ -309,13 +312,13 @@ body{
     cursor: pointer;
 }
 
-.content__button-container{
+.button-container{
     width: 100%;
     text-align: center;
     margin: 30px 0;
 }
 
-.content__button{
+.button{
     text-align: center;
     border: 2px solid #6100FF;
     border-radius: 50%;
@@ -327,42 +330,54 @@ body{
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
 }
-.content__button:hover{
+.button:hover{
     background-color: #6100FF;
 }
 
 /* track order */
 
-.track-order{
+.form-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; 
 }
-.track-order__form{
+.form{
     width: 100%;
     max-width: 600px;
 }
-.track-order__map{
+.track-order-map{
     border: 1px solid #6100FF;
     width: 100%;
     max-width: 600px;
     margin: 40px 0;
     height: 402px;
 }
-.track-order__map iframe{
+.track-order-map iframe{
     height: 400px;
     width: 100%;
 }
 
 @media (min-width: 1335px) {
-    .track-order{
+    .form-container{
        justify-content: space-between;
 
     }
-    .track-order__form{
+    .form{
         margin: 0 5% 0 0;
     }
+}
+
+/* banner */
+
+.banner{
+    margin: 30px 0;
+    width: 100%;
+    min-height: 500px;
+    height: 86vh;
+    background-image: url('../images/banner2.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
 /* footer */
@@ -401,7 +416,7 @@ body{
     align-items: center;
 }
 
-.submit-input{
+.input{
     width: 100%;
     max-width: 400px;
     margin: 30px 0;
