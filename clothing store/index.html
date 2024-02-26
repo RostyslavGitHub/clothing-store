@@ -13,7 +13,7 @@
 
         <header class="header">
             <div class="header__nav-main">
-                <div class="header__logo">clothing shop®</div>
+                <a href=""><div class="header__logo">clothing shop®</div></a>
 
                 <nav class="header__nav-menu">
                     <a class="header__item">Catalog</a>
@@ -23,11 +23,41 @@
 
             </div>
 
-            <div class="header__burger-menu">
+            <div class="header__burger-icon">
                 <div class="header__burger-line"></div>
                 <div class="header__burger-line"></div>
                 <div class="header__burger-line"></div>
             </div>
+
+            <div class="burger-menu__container">
+                <div class="burger-menu">
+                    <div>
+                        <a class="header__item">Catalog</a>
+                        <a class="header__item">Contacts</a>
+                        <a class="header__item">Cart</a>
+                        
+                        <div class="header__lang-settings">
+                            <div class="header__lang">UA</div>
+                            <div>&nbsp;/&nbsp;</div>
+                            <div class="header__lang active--header__lang">ENG</div>
+                        </div>
+                    </div>
+    
+                    <div class="search-and-cart">
+                        <div class="header__search">
+                            <input type="text" class="header__search-bar" /> 
+                            <img src="images/search.png" alt="" class="header__search-bar-img" height="25"/>
+                        </div>
+            
+                        <a href="#" class="header__cart-logo">
+                            <img src="images/shopping-cart.png" alt="Shopping cart link." height="30"/>
+                        </a>
+                    </div>
+        
+                    
+                </div>
+            </div>
+
 
             <div class="header__nav-extended">
                 <div class="search-and-cart">
@@ -185,7 +215,7 @@
             </form>
 
             <div class="track-order-map">
-                <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Kyiv+vasylkivska+()&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Kyiv+vasylkivska+()&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" allowfullscreen="" loading="async" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
 
@@ -216,7 +246,11 @@
             <p class="footer__text">Subscribe to our emails</p>
             <form action="" class="footer__form">
                 <input type="text" class="input" placeholder="Email">
-                <button class="footer__send">></button>
+                <button class="footer__send">
+                    <svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                    </svg>
+                </button>
             </form>
         </div>
         <ul class="footer__link-list">
@@ -226,5 +260,86 @@
         </ul>
     </footer> 
 
+    <div class="cart-container" onclick="hideCartContainer(event)">
+        <div class="cart" onclick="(event) => event.stopPropagation();">
+            <div>
+                <div class="cart__header">
+                    <h2 class="cart__main-title">Cart</h2>
+                    <div class="cart__close-icon">
+                        <svg width="36" height="36" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="shipping-info">
+                    Free shipping from 150
+                </div>
+                <div class="cart__items-row">
+                    <div class="cart__item">
+                        <img src="images/item-img.avif" alt="" class="cart__img">
+                        <div class="cart__info">
+                            <div>
+                                <div class="cart__title-delete-row">
+                                    <div class="cart__title">T-shirt</div>
+                                    <div class="cart-delete-item">
+                                        <svg fill="white" height="14px" width="14px" version="1.1" viewBox="0 0 460.775 460.775" xml:space="preserve"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path> </g></svg>                             
+                                    </div>
+                                </div>
+                                <div class="cart__size">Size: XS</div>
+                            </div>
+                            <div class="cart__quantity-price-row">
+                                <div class="cart__quantity">
+                                    <button class="cart__quantity-sqr">-</button>
+                                    <div class="cart__quantity-sqr">1</div>
+                                    <button class="cart__quantity-sqr">+</button>
+                                </div>
+                                <span class="cart__price">€111.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart__item">
+                        <img src="images/item-img.avif" alt="" class="cart__img">
+                        <div class="cart__info">
+                            <div>
+                                <div class="cart__title-delete-row">
+                                    <div class="cart__title">T-shirt</div>
+                                    <div class="cart-delete-item">
+                                        <svg fill="white" height="14px" width="14px" version="1.1" viewBox="0 0 460.775 460.775" xml:space="preserve"><g stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path> </g></svg>                             
+                                    </div>
+                                </div>
+                                <div class="cart__size">Size: XS</div>
+                            </div>
+                            <div class="cart__quantity-price-row">
+                                <div class="cart__quantity">
+                                    <button class="cart__quantity-sqr">-</button>
+                                    <div class="cart__quantity-sqr">1</div>
+                                    <button class="cart__quantity-sqr">+</button>
+                                </div>
+                                <span class="cart__price">€111.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="cart__checkout">
+                <div class="total-price"><div>Total price: </div> <div>€222</div></div>
+                <button class="button">Checkaout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hideCartContainer(event) {
+          const cartContainer = document.querySelector('.cart-container');
+          const cartElement = document.querySelector('.cart');
+        
+          if (!cartElement.contains(event.target)) {
+            cartContainer.style.visibility = 'hidden';
+          }
+        }
+    </script>
 </body>
 </html>

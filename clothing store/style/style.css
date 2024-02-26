@@ -70,6 +70,9 @@ body{
     border: 1px solid #ffffff;
     display: block;
 }
+.input:focus, textarea:focus{
+    border: 1px solid #6100FF;
+}
 .textarea{
     width: 100%;
     max-width: 400px;
@@ -97,7 +100,7 @@ body{
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
 }
-.button:hover{
+.button:hover, .button:focus{
     background-color: #6100FF;
 }
 ::placeholder {
@@ -131,6 +134,8 @@ body{
     margin-right: 50px;
     line-height: 1.6;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .header__nav-menu{
     display: flex;
@@ -144,12 +149,16 @@ body{
     visibility: hidden;
 }
 .header__item{
-    padding: 0 6px;
+    padding: 4px;
     margin: 0 10px;
     cursor: pointer;
     display: block;
+    color: #ffffff;
 }
-.header__burger-menu{
+.header__item:hover{
+    background: #6100FF;
+}
+.header__burger-icon{
     width: 50px;
     height: 50px;
     background-color: #6100FF;
@@ -162,6 +171,7 @@ body{
     top: 20px;
     right: 24px;
     cursor: pointer;
+    z-index: 1000000;
 }
 .header__burger-line{
     width: 30px;
@@ -183,30 +193,36 @@ body{
     display: flex;
     align-items: center;
     background-color: #ffffff;
+    border: 1px solid #ffffff;
     border-radius: 20px;
     width: 100%;
 }
 .header__search-bar{
-    padding: 8px 14px;
+    padding: 6px 12px;
     border-radius: 24px;
     width: 100%;
     background-color: #ffffff;
     font-size: 16px;
+}
+.header__search:hover{
+    border: 1px solid #6100FF;
 }
 .header__search-bar-img{
     margin: 0px 10px 0px 0;
     cursor: pointer;
 }
 .header__cart-logo{
-    margin: 0px 10px;
+    margin: 0px 18px 0 14px;
     display: block;
 }
 .header__lang-settings{
     display: flex;
     align-items: center;
+    font-size: 1.3rem;
 }
 .header__lang{
     cursor: pointer;
+    
 }
 
 @media (min-width: 1100px) {
@@ -221,7 +237,7 @@ body{
         opacity: 1;
         visibility: visible;
     }
-    .header__burger-menu{
+    .header__burger-icon{
         opacity: 0;
         visibility: hidden;
     }
@@ -230,7 +246,48 @@ body{
         flex-direction: row;
     }
 }
+.burger-menu__container{
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: rgba(97, 0, 255, 0.2);
+    overflow-y: auto;
+    visibility: hidden;
+}
+.burger-menu{
+    width: 100%;
+    height: auto;
+    padding: 12px 20px;
+    background-color: #000000;
+}
+.burger-menu .header__item{
+    margin: 20px 0;
+    font-size: 1.6rem;
+}
+.burger-menu .header__lang-settings{
+    margin: 0 6px;
+    font-size: 1.6rem;
+}
+.burger-menu .search-and-cart{
+    margin: 20px 0;
+}
 
+.burger-menu .active--header__lang{
+    font-size: 1.7rem;
+}
+
+.burger-menu .header__search{
+    max-width: 400px;
+}
+.burger-menu .header__search-bar{
+    font-size: 1.5rem;
+}
+.burger-menu .header__cart-logo img{
+    width: 50px;
+    height: auto;
+}
 
 /* hero */
 
@@ -267,6 +324,7 @@ body{
     font-size: 5rem;
     color: #6100FF;
     line-height: 1.6;
+    cursor: default;
 }
 
 /* stars */
@@ -404,7 +462,6 @@ body{
 }
 .reviews__item{
     width: 100%;
-    /* width: 50%; */
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
@@ -424,6 +481,7 @@ body{
     width: 240px;
 }
 .reviews__stars{
+    cursor: default;
     font-size: 30px;
     letter-spacing: 3px;
     color: #6100FF;
@@ -716,7 +774,141 @@ body{
 
 /* cart */
 
+.cart-container {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(97, 0, 255, 0.1);
+    padding: 20px;
+    visibility: hidden;
+}
 
+.cart {
+    margin-top: 100px;
+    border: 1px solid #6100FF;
+    width: 500px;
+    height: 700px;
+    overflow-y: auto;
+    background: #000;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-height: 700px) {
+    .cart {
+        height: 70%; 
+    }
+}
+.cart__header{
+    height: 60px;
+    border-bottom: 1px solid #6100FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.cart__main-title{
+    font-size: 1.6rem;
+}
+.cart__close-icon{
+    margin-top: 2px;
+    cursor: pointer;
+}
+.shipping-info{
+    text-align: center;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart__items-row{
+    margin: 0 20px;
+    padding: 20px 0; 
+    border-bottom: 1px solid #6100FF;
+}
+.cart__item{
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.cart__img{
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+}
+.cart__info{
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cart__title-delete-row{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: start;
+}
+.cart__title{
+    font-size: 1.3rem;
+}
+.cart-delete-item{
+    cursor: pointer;
+}
+.cart__size{
+    font-size: 1rem;
+    margin: 8px 0 12px 0;
+    color: #acacac;
+}
+.cart__quantity-price-row{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+.cart__quantity{
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: center;
+}
+.cart__quantity-sqr:first-child:hover, 
+.cart__quantity-sqr:last-child:hover{
+    background-color: #6100FF;
+    color: #000000;
+}
+.cart__quantity-sqr{
+    width: 30px;
+    height: 30px;
+    background-color: #000000;
+    border: 1px solid #6100FF;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+.cart__price{
+    font-size: 1.3rem;
+}
+.total-price{
+    width: 100%;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.cart__checkout{
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    
+}
 /* footer */
 
 .footer{
@@ -752,7 +944,7 @@ body{
     position: relative;
     right: 36px;
     width: 30px;
-    height: 30px;
+    height: 26px;
     font-size: 24px;
     background: transparent;
     color: #ffffff;
@@ -774,7 +966,7 @@ body{
     display: block;
 }
 .footer__link:hover{
-    color: #6100FF
+    background-color: #6100FF;
 }
 
 @media (min-width: 700px) {
@@ -799,7 +991,6 @@ body{
 .active--header__lang{
     color: #6100FF;
     font-weight: 700;
-    font-size: 1.1rem;
 }
 
 .active--menu {
