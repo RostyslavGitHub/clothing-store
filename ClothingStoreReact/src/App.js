@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import Header from './modules/Header';
-import Footer from './modules/Footer';
+import Header from './modules/components/Header';
+import Footer from './modules/components/Footer';
 import MainPage from './modules/MainPage';
 import CatalogPage from './modules/CatalogPage';
 import Page404 from './modules/Page404';
-import CartPopup from './modules/CartPopup';
+import CartPopup from './modules/components/CartPopup';
 import "./styles.css";
 
 function App() {

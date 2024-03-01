@@ -42,10 +42,7 @@ const sectionButtons = [
     },
 ]
 
-const Content = () => {
-    const contentTitle = 'Catalog';
-    const isButtonThere = false;
-    const isNavThere = true;
+const Content = ({contentTitle, isButtonThere, isNavThere}) => {
     const [catalogData, setCatalogData] = useState(contentData);
     const [activeButton, setActiveButton] = useState('All');
 

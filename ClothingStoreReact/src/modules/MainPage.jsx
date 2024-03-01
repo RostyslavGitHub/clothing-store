@@ -10,9 +10,9 @@ const MainPage = () =>{
         <>
         <Hero/>
         <StarsBelt/>
-        <Content/>
+        <Content contentTitle={'LATEST ARRIVALS'} isButtonThere={true} isNavThere={false}/>
         <StarsBelt/>
-        <Content/>
+        <Content contentTitle={'BESTSELLERS'} isButtonThere={false} isNavThere={false}/>
         <StarsBelt/>
         <TrackOrderForm/>
         <Banner/>
