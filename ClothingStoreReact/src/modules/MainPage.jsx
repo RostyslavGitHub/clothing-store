@@ -4,8 +4,8 @@ import Content from './components/Content';
 import TrackOrderForm from './components/TrackOrderForm';
 import Banner from './components/Banner';
 import ContactForm from './components/ContactForm';
-
-const MainPage = () =>{
+const MainPage = ({contact}) =>{
+    
     return(
         <>
         <Hero/>
@@ -16,7 +16,7 @@ const MainPage = () =>{
         <StarsBelt/>
         <TrackOrderForm/>
         <Banner/>
-        <ContactForm/>
+        <ContactForm contact={contact}/>
         </>
     )
 }

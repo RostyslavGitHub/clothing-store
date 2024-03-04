@@ -1,6 +1,10 @@
-const ContactForm = () =>{
+import React from 'react';
+
+
+const ContactForm = ({contact}) =>{
+
     return(
-        <div className="form-container">
+        <div ref={contact} className="form-container">
             <form action="" className="form">
             <h2 className="title">Contact us</h2>
             <input type="text" className="input" placeholder="Name" />

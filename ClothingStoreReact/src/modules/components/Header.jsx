@@ -1,30 +1,65 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({contact}) => {
+    const navigate = useNavigate();
+
+    const closeBurgerMenu = () => {
+        const header = document.querySelector('.header');
+        header.classList.remove('active--menu');
+        const body = document.querySelector('body');
+        body.classList.remove('overflowHidden');
+    }
+
+    const goToContacts = () =>{
+        navigate('/'); 
+        setTimeout(() => {
+            contact.current.scrollIntoView({ behavior: 'smooth' });
+        }, 100)
+        setTimeout(() => {
+            closeBurgerMenu()
+        }, 200)
+    }
+    
+    const toggleBurgerMenu = () => {
+        const header = document.querySelector('.header');
+        header.classList.toggle('active--menu');
+        const body = document.querySelector('body');
+        body.classList.toggle('overflowHidden');
+    }
+
+    const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+        if (c > 0) {
+          window.requestAnimationFrame(scrollToTop);
+          window.scrollTo(0, c - c / 8);
+        }
+    }
+
     return(
         <>
             <header className="header">
                 <div className="header__nav-main">
-                <Link to="/" className="header__logo">
+                <Link to="/" onClick={()=>{closeBurgerMenu();scrollToTop();}} className="header__logo">
                     <div className="header__logo">clothing shop®</div>
                 </Link>
                 <nav className="header__nav-menu">
-                    <Link to="/catalog" className="header__item">Catalog</Link>
-                    <a className="header__item">Contacts</a>
+                    <Link to="/catalog" onClick={()=>{scrollToTop(); closeBurgerMenu();}} className="header__item">Catalog</Link>
+                    <Link to="/" onClick={goToContacts} className="header__item">Contacts</Link>
                     <a className="header__item">Cart</a>
                 </nav>
                 </div>
-                <div className="header__burger-icon">
-                <div className="header__burger-line" />
-                <div className="header__burger-line" />
-                <div className="header__burger-line" />
+                <div onClick={toggleBurgerMenu} className="header__burger-icon">
+                    <div className="header__burger-line" />
+                    <div className="header__burger-line" />
+                    <div className="header__burger-line" />
                 </div>
                 <div className="burger-menu__container">
                 <div className="burger-menu">
                     <div>
-                    <Link to="/catalog" className="header__item">Catalog</Link>
-                    <a className="header__item">Contacts</a>
+                    <Link to="/catalog" onClick={scrollToTop} className="header__item">Catalog</Link>
+                    <Link to="/" onClick={goToContacts} className="header__item">Contacts</Link>
                     <a className="header__item">Cart</a>
                     <div className="header__lang-settings">
                         <div className="header__lang">UA</div>

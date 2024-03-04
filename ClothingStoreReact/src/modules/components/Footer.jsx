@@ -19,23 +19,22 @@ const Footer = () => {
             </div>
             <ul className="footer__link-list">
                 <li>
-                <a className="footer__link" href="">
-                    Contact us
-                </a>
+                    <a className="footer__link" href="mailto:forwork.rostislav@gmail.com">
+                        Contact us by email
+                    </a>
                 </li>
                 <li>
-                <a className="footer__link" href="">
-                    Shipping policy
-                </a>
+                    <a className="footer__link" href="">
+                        Shipping policy
+                    </a>
                 </li>
                 <li>
-                <a className="footer__link" href="">
-                    Refund Policy
-                </a>
+                    <a className="footer__link" href="">
+                        Refund Policy
+                    </a>
                 </li>
             </ul>
         </footer>
-
         </>
     )
 };

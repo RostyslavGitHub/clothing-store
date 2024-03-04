@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import { Link } from "react-router-dom";
 
 const contentData = [
     {
@@ -42,6 +43,15 @@ const sectionButtons = [
     },
 ]
 
+const scrollToTop = () => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (c > 0) {
+      window.requestAnimationFrame(scrollToTop);
+      window.scrollTo(0, c - c / 8);
+    }
+}
+
 const Content = ({contentTitle, isButtonThere, isNavThere}) => {
     const [catalogData, setCatalogData] = useState(contentData);
     const [activeButton, setActiveButton] = useState('All');
@@ -58,7 +68,8 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                 <h2 className="content__title title">{contentTitle}</h2>
 
                 {isNavThere && (
-                     <nav className="content__nav">
+                    <>
+                    <nav className="content__nav">
                      <button
                          className={activeButton === 'All' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
                          onClick={()=>{setCatalogData(contentData); setActiveButton('All');}}
@@ -83,7 +94,40 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                          Sale
                      </button>
                  </nav>
-                )}
+                 <div className="content__menu">
+                    <div className="color-row">
+                        <h3 className="option-title">Colors:</h3>
+                        <div className="color-checkbox-row">
+                        <input
+                            className="color__checkbox"
+                            type="checkbox"
+                            name="color"
+                            id="black"
+                        />
+                        <label htmlFor="black" style={{ backgroundColor: "black" }} />
+                        <input
+                            className="color__checkbox"
+                            type="checkbox"
+                            name="color"
+                            id="purple"
+                        />
+                        <label htmlFor="purple" style={{ backgroundColor: "purple" }} />
+                        <input
+                            className="color__checkbox"
+                            type="checkbox"
+                            name="color"
+                            id="white"
+                        />
+                        <label htmlFor="white" style={{ backgroundColor: "white" }} />
+                        </div>
+                    </div>
+                    <div className="size-container">
+                        <h3 className="option-title">Size:</h3>
+                        <div className="size-dropdown">XS</div>
+                    </div>
+                    </div>
+
+            </>)}
 
                 <div className="content__row">
                     {catalogData.map(item => (
@@ -109,9 +153,9 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
 
             {isButtonThere && (
                 <div className="button-container">
-                    <a href="#" className="button">
+                    <Link to="/catalog" onClick={scrollToTop} className="button">
                         View All
-                    </a>
+                    </Link>
                 </div>
             )}
         </div>
