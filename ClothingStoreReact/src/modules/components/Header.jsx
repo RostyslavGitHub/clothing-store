@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Header = ({contact}) => {
+const Header = ({contact, setFilteredInput}) => {
     const navigate = useNavigate();
 
     const closeBurgerMenu = () => {
@@ -37,17 +37,27 @@ const Header = ({contact}) => {
         }
     }
 
+    const filterItems = (e) => {
+        navigate('/catalog');
+        scrollToTop()
+        setFilteredInput(e.target.value);
+      };
+
     return(
         <>
             <header className="header">
                 <div className="header__nav-main">
-                <Link to="/" onClick={()=>{closeBurgerMenu();scrollToTop();}} className="header__logo">
+                <Link to="/" onClick={()=>{closeBurgerMenu()}} className="header__logo">
                     <div className="header__logo">clothing shop®</div>
                 </Link>
                 <nav className="header__nav-menu">
+
                     <Link to="/catalog" onClick={()=>{scrollToTop(); closeBurgerMenu();}} className="header__item">Catalog</Link>
+
                     <Link to="/" onClick={goToContacts} className="header__item">Contacts</Link>
+
                     <a className="header__item">Cart</a>
+
                 </nav>
                 </div>
                 <div onClick={toggleBurgerMenu} className="header__burger-icon">
@@ -56,50 +66,58 @@ const Header = ({contact}) => {
                     <div className="header__burger-line" />
                 </div>
                 <div className="burger-menu__container">
-                <div className="burger-menu">
-                    <div>
-                    <Link to="/catalog" onClick={scrollToTop} className="header__item">Catalog</Link>
-                    <Link to="/" onClick={goToContacts} className="header__item">Contacts</Link>
-                    <a className="header__item">Cart</a>
-                    <div className="header__lang-settings">
-                        <div className="header__lang">UA</div>
-                        <div>&nbsp;/&nbsp;</div>
-                        <div className="header__lang active--header__lang">ENG</div>
+                    <div className="burger-menu">
+                        <div>
+                            <Link to="/catalog" onClick={()=>{scrollToTop(); closeBurgerMenu();}} className="header__item">Catalog</Link>
+
+                            <Link to="/" onClick={goToContacts} className="header__item">Contacts</Link>
+
+                            <a className="header__item">Cart</a>
+
+                            <div className="header__lang-settings">
+                                <div className="header__lang">UA</div>
+                                <div>&nbsp;/&nbsp;</div>
+                                <div className="header__lang active--header__lang">ENG</div>
+                            </div>      
+                        </div>
+                        <div className="search-and-cart">
+                        <div className="header__search">
+                            <input type="text" className="header__search-bar" />
+                            <img
+                            src="images/search.png"
+                            alt=""
+                            className="header__search-bar-img"
+                            height={25}
+                            />
+                        </div>
+                        <a href="#" className="header__cart-logo">
+                            <img
+                            src="images/shopping-cart.png"
+                            alt="Shopping cart link."
+                            height={30}
+                            />
+                        </a>
+                        </div>
                     </div>
-                    </div>
-                    <div className="search-and-cart">
-                    <div className="header__search">
-                        <input type="text" className="header__search-bar" />
-                        <img
-                        src="images/search.png"
-                        alt=""
-                        className="header__search-bar-img"
-                        height={25}
-                        />
-                    </div>
-                    <a href="#" className="header__cart-logo">
-                        <img
-                        src="images/shopping-cart.png"
-                        alt="Shopping cart link."
-                        height={30}
-                        />
-                    </a>
-                    </div>
-                </div>
                 </div>
                 <div className="header__nav-extended">
                 <div className="search-and-cart">
                     <div className="header__search">
-                    <input type="text" className="header__search-bar" />
+                    <input onChange={(e)=>filterItems(e)} type="text" className="header__search-bar" />
                     <img
                         src="images/search.png"
                         alt=""
                         className="header__search-bar-img"
                         height={25}
+                        onClick={()=>{
+                            navigate('/catalog');
+                            closeBurgerMenu();
+                            scrollToTop();
+                        }}
                     />
                     </div>
                     <a href="#" className="header__cart-logo">
-                    <img
+                    <img 
                         src="images/shopping-cart.png"
                         alt="Shopping cart link."
                         height={30}

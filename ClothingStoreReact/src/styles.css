@@ -148,6 +148,7 @@ body{
     line-height: 2;
     opacity: 0;
     visibility: hidden;
+    transition: 1s;
 }
 .header__item{
     padding: 4px;
@@ -162,7 +163,7 @@ body{
 .header__burger-icon{
     width: 50px;
     height: 50px;
-    background-color: #6100FF;
+    border: 1px solid #6100FF;
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -176,9 +177,10 @@ body{
 }
 .header__burger-line{
     width: 30px;
-    height: 3px;
+    height: 4px;
     background-color: #000000;
-    margin: 2px 0;
+    border: 1px solid #6100FF;
+    margin: 1.5px 0;
     border-radius: 2px;
 }
 .header__nav-extended{
@@ -226,7 +228,6 @@ body{
 }
 
 @media (min-width: 1100px) {
-
     .header__nav-main{
         flex-direction: row;
     }
@@ -994,9 +995,8 @@ body{
 }
 
 .active--menu {
-    flex-direction: column;
-    align-items: start;
     height: 100%;
+    align-items: stretch;
 }
 .active--menu .header__nav-extended {
     display: flex;

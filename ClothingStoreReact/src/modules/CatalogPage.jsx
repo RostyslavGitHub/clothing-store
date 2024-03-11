@@ -1,11 +1,12 @@
+import React from 'react';
 import Content from './components/Content';
 
-const CatalogPage = () =>{
-    return(
+const CatalogPage = ({ contentData }) => {
+    return (
         <>
-        <Content contentTitle={'Catalog'} isButtonThere={false} isNavThere={true}/>
+            <Content contentData={contentData} contentTitle={'Catalog'} isButtonThere={false} isNavThere={true} />
         </>
-    )
+    );
 }
 
 export default CatalogPage;

@@ -1,33 +1,6 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 
-const contentData = [
-    {
-        title: 'T-shirt',
-        category: 'T-shirts & Tops',
-        img: 'item-img.avif',
-        price: '111,00',
-        sale: true,
-        id: new Date().getTime() + Math.random(1, 1000000000),
-    },
-    {
-        title: 'T-shirt',
-        category: 'T-shirts & Tops',
-        img: 'item-img.avif',
-        price: '111,00',
-        sale: false,
-        id: new Date().getTime() + Math.random(1, 1000000000), 
-    },
-    {
-        title: 'T-shirt',
-        category: 'Knitwear',
-        img: 'item-img.avif',
-        price: '111,00',
-        sale: true,
-        id: new Date().getTime() + Math.random(1, 1000000000),
-    },
-];
-
 const sectionButtons = [
     {
         title: 'T-shirts & Tops',
@@ -52,7 +25,7 @@ const scrollToTop = () => {
     }
 }
 
-const Content = ({contentTitle, isButtonThere, isNavThere}) => {
+const Content = ({contentData, contentTitle, isButtonThere, isNavThere}) => {
     const [catalogData, setCatalogData] = useState(contentData);
     const [activeButton, setActiveButton] = useState('All');
 
@@ -72,7 +45,10 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                     <nav className="content__nav">
                      <button
                          className={activeButton === 'All' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                         onClick={()=>{setCatalogData(contentData); setActiveButton('All');}}
+                         onClick={()=>{
+                            setCatalogData(contentData); 
+                            setActiveButton('All');
+                        }}
                      >
                          All
                      </button>
@@ -87,7 +63,7 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                      <button
                          className={activeButton === 'Sale' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
                          onClick={() => {
-                             setCatalogData(contentData.filter(item => item.sale === true));
+                             setCatalogData(contentData.filter(item => item.sale));
                              setActiveButton('Sale');
                          }}
                      >
@@ -123,7 +99,7 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                     </div>
                     <div className="size-container">
                         <h3 className="option-title">Size:</h3>
-                        <div className="size-dropdown">XS</div>
+                        <div className="size-dropdown">All</div>
                     </div>
                     </div>
 
@@ -139,7 +115,7 @@ const Content = ({contentTitle, isButtonThere, isNavThere}) => {
                             />
                             <div className="item__title">{item.title}</div>
                             <div className="price">
-                                €{item.price}{" "}
+                                {item.sale ? <span><span style={{color: '#FF5733'}}>€{item.sale}</span> <span style={{textDecoration: 'line-through', fontSize: '1rem'}}>€{item.price}</span></span> : <span>€{item.price}</span>}
                                 <img
                                     src="images/shopping-cart.png"
                                     alt="Shopping cart"
