@@ -1,17 +1,33 @@
 const CartPopup = () =>{
+
+    const removeCart = () => {
+        const cartPopup = document.querySelector('.cart-container');
+        cartPopup.classList.remove('active--cart');
+        const body = document.querySelector('body');
+        body.classList.remove('overflowHidden');
+    }
+
+    function hideCartContainer(event) {
+        const cartElement = document.querySelector('.cart');
+      
+        if (!cartElement.contains(event.target)) {
+            removeCart()
+        }
+      }
+
     return(
-        <div className="cart-container">
-            <div className="cart">
+        <div className="cart-container" onClick={(event)=>hideCartContainer(event)}>
+            <div className="cart" onClick={(event) => event.stopPropagation()}>
                 <div>
                 <div className="cart__header">
                     <h2 className="cart__main-title">Cart</h2>
-                    <div className="cart__close-icon">
+                    <div onClick={removeCart} className="cart__close-icon">
                     <svg width={36} height={36} fill="currentColor" viewBox="0 0 16 16">
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                     </svg>
                     </div>
                 </div>
-                <div className="shipping-info">Free shipping from 150</div>
+                <div className="shipping-info">Free shipping from €150</div>
                 <div className="cart__items-row">
                     <div className="cart__item">
                     <img src="images/item-img.avif" alt="" className="cart__img" />

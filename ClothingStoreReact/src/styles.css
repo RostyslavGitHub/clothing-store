@@ -217,6 +217,7 @@ body{
 .header__cart-logo{
     margin: 0px 18px 0 14px;
     display: block;
+    cursor: pointer;
 }
 .header__lang-settings{
     display: flex;
@@ -785,6 +786,8 @@ body{
     background-color: rgba(97, 0, 255, 0.1);
     padding: 20px;
     visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
 }
 
 .cart {
@@ -994,6 +997,11 @@ body{
     font-weight: 700;
 }
 
+.active--cart{
+    visibility: visible;
+    opacity: 1;
+}
+
 .active--menu {
     height: 100%;
     align-items: stretch;
@@ -1037,4 +1045,22 @@ body{
 
 .overflowHidden{
     overflow: hidden;
+}
+
+/* go up */
+.go-up{
+    position: fixed;
+    bottom: 4%;
+    right: 2%;
+    width: 50px;
+    height: 54px;
+    border: 2px solid #6100FF;
+    opacity: 0.9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6100FF;
+    cursor: pointer;
+    margin: 10px;
 }

@@ -6,6 +6,7 @@ import MainPage from './modules/MainPage';
 import CatalogPage from './modules/CatalogPage';
 import Page404 from './modules/Page404';
 import CartPopup from './modules/components/CartPopup';
+import GoUp from './modules/components/GoUp';
 import { contentData } from './data';
 import './styles.css';
 
@@ -28,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="wrapper">
-        <Header contact={contact} setFilteredInput={setFilteredInput} />
+        <Header contact={contact} setFilteredInput={setFilteredInput}/>
         <Routes>
           <Route path="/" element={<MainPage contentData={contentData} contact={contact} />} />
           <Route
@@ -39,6 +40,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
+      <GoUp />
       <CartPopup />
     </BrowserRouter>
   );
