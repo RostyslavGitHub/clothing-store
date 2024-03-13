@@ -776,23 +776,29 @@ textarea:focus {
   align-items: center;
   margin: 10px 0;
 }
-.size-dropdown::after {
-  content: ">";
-  font-size: 22px;
+.size-dropdown .button-right {
+  background-color: transparent;
+  font-size: 24px;
+  width: 20px;
   color: #6100ff;
-  position: absolute;
-  right: 8px;
-  top: 1px;
-  cursor: pointer;
+  position: relative;
+  right: 12px;
+  cursor: pointer; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.size-dropdown::before {
-  content: "<";
-  font-size: 22px;
+.size-dropdown .button-left {
+  background-color: transparent;
+  font-size: 24px;
+  width: 20px;
   color: #6100ff;
-  position: absolute;
-  right: 74px;
-  top: 1px;
-  cursor: pointer;
+  position: relative;
+  left: 12px;
+  cursor: pointer; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .option-title {
   font-size: 1.5rem;

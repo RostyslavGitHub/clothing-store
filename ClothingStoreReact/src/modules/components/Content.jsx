@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
   const [catalogData, setCatalogData] = useState(contentData);
-  const [activeButton, setActiveButton] = useState('All');
+  const [activeButton, setActiveButton] = useState("All");
   const [checkedColors, setCheckedColors] = useState([]);
-
-  const sectionButtons = [...new Set(contentData.map(item => item.category))];
+  const [selectedSize, setSelectedSize] = useState(0)
+  
+  const sectionButtons = [...new Set(contentData.map((item) => item.category))];
 
   const colorsButtons = contentData.reduce((colors, item) => {
-    item.colors.forEach(color => {
+    item.colors.forEach((color) => {
       if (!colors.includes(color)) {
         colors.push(color);
       }
@@ -17,73 +18,62 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
     return colors;
   }, []);
 
+  const sizesOptions = ["All", "XS", "S", "M", "L"];
+
+  useEffect(() => {
+    filterItems(activeButton, checkedColors);
+  }, [activeButton, checkedColors, selectedSize, catalogData]);
+
   const scrollToTop = () => {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    const c =
+      document.documentElement.scrollTop || document.body.scrollTop;
 
     if (c > 0) {
       window.requestAnimationFrame(scrollToTop);
       window.scrollTo(0, c - c / 8);
     }
-  }
+  };
 
-  const filterItemsByCategory = (section) => {
-    let filteredItems = [];
-
-    if (section === 'All') {
-      filteredItems = contentData;
-    } else if (section === 'Sale') {
-      filteredItems = contentData.filter(item => item.sale);
-    } else {
-      filteredItems = contentData.filter(item => item.category === section);
+  const filterItems = (section, colors) => {
+    let filteredData = contentData;
+    if (section !== "All") {
+      filteredData = contentData.filter((item) => item.category === section);
+    }
+    if (section === "Sale") {
+      filteredData = contentData.filter((item) => item.sale);
+    }
+    if (colors.length > 0) {
+      filteredData = filteredData.filter((item) =>
+        colors.some((color) => item.colors.includes(color))
+      );
     }
 
-    setActiveButton(section);
-    setCatalogData(filteredItems);
-  }
+    if (selectedSize > 0) {
+      filteredData = filteredData.filter(item => item.sizes.includes(sizesOptions[selectedSize]));
+    }
+    setCatalogData(filteredData);
+  };
 
-  const filterItemsByColor = (color) => {
-    let filteredColors = [...checkedColors];
-    if (filteredColors.includes(color)) {
-      filteredColors = filteredColors.filter(c => c !== color);
+  const handleCategoryClick = (category) => {
+    setActiveButton(category);
+  };
+
+  const handleColorToggle = (color) => {
+    let newColors = [...checkedColors];
+    if (newColors.includes(color)) {
+      newColors = newColors.filter((c) => c !== color);
     } else {
-      filteredColors.push(color);
+      newColors.push(color);
     }
-  
-    setCheckedColors(filteredColors);
-  
-    let filteredItems = [];
-    
-    if (filteredColors.length === 0) {
-      if (activeButton === 'All') {
-        filteredItems = contentData;
-      } else if (activeButton === 'Sale') {
-        filteredItems = contentData.filter(item => item.sale);
-      } else {
-        filteredItems = contentData.filter(item => item.category === activeButton);
-      }
-    } else {
-      if (activeButton === 'All') {
-        filteredItems = contentData.filter(item =>
-          filteredColors.some(color => item.colors.includes(color))
-        );
-      } else {
-        if (activeButton === 'Sale') {
-          filteredItems = contentData.filter(item =>
-            item.sale && filteredColors.some(color => item.colors.includes(color))
-          );
-        } else {
-          filteredItems = contentData.filter(item =>
-            item.category === activeButton && filteredColors.some(color => item.colors.includes(color))
-          );
-        }
-      }
-    }
-  
-    setCatalogData(filteredItems);
-  }
-  
+    setCheckedColors(newColors);
+  };
+
   const isColorChecked = (color) => {
     return checkedColors.includes(color);
+  };
+
+  const handleSizeChange = () => {
+
   }
 
   return (
@@ -95,8 +85,12 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
           <>
             <nav className="content__nav">
               <button
-                className={activeButton === 'All' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                onClick={() => filterItemsByCategory('All')}
+                className={
+                  activeButton === "All"
+                    ? "content__nav-option active-content__nav-option"
+                    : "content__nav-option"
+                }
+                onClick={() => handleCategoryClick("All")}
               >
                 All
               </button>
@@ -104,16 +98,24 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
               {sectionButtons.map((category, index) => (
                 <button
                   key={index}
-                  className={activeButton === category ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                  onClick={() => filterItemsByCategory(category)}
+                  className={
+                    activeButton === category
+                      ? "content__nav-option active-content__nav-option"
+                      : "content__nav-option"
+                  }
+                  onClick={() => handleCategoryClick(category)}
                 >
                   {category}
                 </button>
               ))}
 
               <button
-                className={activeButton === 'Sale' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                onClick={() => filterItemsByCategory('Sale')}
+                className={
+                  activeButton === "Sale"
+                    ? "content__nav-option active-content__nav-option"
+                    : "content__nav-option"
+                }
+                onClick={() => handleCategoryClick("Sale")}
               >
                 Sale
               </button>
@@ -122,32 +124,38 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
               <div className="color-row">
                 <h3 className="option-title">Colors:</h3>
                 <div className="color-checkbox-row">
-                  {colorsButtons.map(colorButton => (
+                  {colorsButtons.map((colorButton) => (
                     <div key={colorButton}>
                       <input
-                        onChange={() => filterItemsByColor(colorButton)}
+                        onChange={() => handleColorToggle(colorButton)}
                         checked={isColorChecked(colorButton)}
                         className="color__checkbox"
                         type="checkbox"
                         name="color"
                         id={colorButton}
                       />
-                      <label htmlFor={colorButton} style={{ backgroundColor: colorButton }} />
+                      <label
+                        htmlFor={colorButton}
+                        style={{ backgroundColor: colorButton }}
+                      />
                     </div>
                   ))}
                 </div>
               </div>
               <div className="size-container">
                 <h3 className="option-title">Size:</h3>
-                <div className="size-dropdown">All</div>
+                <div className="size-dropdown">
+                  <button className="button-right" onClick={()=> setSelectedSize(prevCount => prevCount > 0 ? prevCount - 1 : sizesOptions.length - 1)}>&lt;</button>
+                  {sizesOptions[selectedSize]}
+                  <button className="button-left" onClick={()=> setSelectedSize(prevCount => prevCount < sizesOptions.length - 1 ? prevCount + 1 : 0)}>&gt;</button>
+                  </div>
               </div>
             </div>
-
           </>
         )}
 
         <div className="content__row">
-          {catalogData.map(item => (
+          {catalogData.map((item) => (
             <div key={item.id} className="item">
               <img
                 src={"images/" + item.img}
@@ -158,8 +166,15 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
               <div className="price">
                 {item.sale ? (
                   <span>
-                    <span style={{ color: '#FF5733' }}>€{item.sale}</span>{" "}
-                    <span style={{ textDecoration: 'line-through', fontSize: '1rem' }}>€{item.price}</span>
+                    <span style={{ color: "#FF5733" }}>€{item.sale}</span>{" "}
+                    <span
+                      style={{
+                        textDecoration: "line-through",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      €{item.price}
+                    </span>
                   </span>
                 ) : (
                   <span>€{item.price}</span>
@@ -184,6 +199,6 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
       )}
     </div>
   );
-}
+};
 
 export default Content;
