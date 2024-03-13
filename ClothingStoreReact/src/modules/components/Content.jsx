@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
   const [catalogData, setCatalogData] = useState(contentData);
   const [activeButton, setActiveButton] = useState('All');
+  const [checkedColors, setCheckedColors] = useState([]);
 
   const sectionButtons = [...new Set(contentData.map(item => item.category))];
 
@@ -25,7 +26,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
     }
   }
 
-  const filterItems = (section) => {
+  const filterItemsByCategory = (section) => {
     let filteredItems = [];
 
     if (section === 'All') {
@@ -36,8 +37,53 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
       filteredItems = contentData.filter(item => item.category === section);
     }
 
-    setCatalogData(filteredItems);
     setActiveButton(section);
+    setCatalogData(filteredItems);
+  }
+
+  const filterItemsByColor = (color) => {
+    let filteredColors = [...checkedColors];
+    if (filteredColors.includes(color)) {
+      filteredColors = filteredColors.filter(c => c !== color);
+    } else {
+      filteredColors.push(color);
+    }
+  
+    setCheckedColors(filteredColors);
+  
+    let filteredItems = [];
+    
+    if (filteredColors.length === 0) {
+      if (activeButton === 'All') {
+        filteredItems = contentData;
+      } else if (activeButton === 'Sale') {
+        filteredItems = contentData.filter(item => item.sale);
+      } else {
+        filteredItems = contentData.filter(item => item.category === activeButton);
+      }
+    } else {
+      if (activeButton === 'All') {
+        filteredItems = contentData.filter(item =>
+          filteredColors.some(color => item.colors.includes(color))
+        );
+      } else {
+        if (activeButton === 'Sale') {
+          filteredItems = contentData.filter(item =>
+            item.sale && filteredColors.some(color => item.colors.includes(color))
+          );
+        } else {
+          filteredItems = contentData.filter(item =>
+            item.category === activeButton && filteredColors.some(color => item.colors.includes(color))
+          );
+        }
+      }
+    }
+  
+    setCatalogData(filteredItems);
+  }
+  
+  const isColorChecked = (color) => {
+    return checkedColors.includes(color);
   }
 
   return (
@@ -50,7 +96,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
             <nav className="content__nav">
               <button
                 className={activeButton === 'All' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                onClick={() => filterItems('All')}
+                onClick={() => filterItemsByCategory('All')}
               >
                 All
               </button>
@@ -59,7 +105,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
                 <button
                   key={index}
                   className={activeButton === category ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                  onClick={() => filterItems(category)}
+                  onClick={() => filterItemsByCategory(category)}
                 >
                   {category}
                 </button>
@@ -67,7 +113,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
 
               <button
                 className={activeButton === 'Sale' ? 'content__nav-option active-content__nav-option' : 'content__nav-option'}
-                onClick={() => filterItems('Sale')}
+                onClick={() => filterItemsByCategory('Sale')}
               >
                 Sale
               </button>
@@ -79,7 +125,8 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
                   {colorsButtons.map(colorButton => (
                     <div key={colorButton}>
                       <input
-                        onChange={() => {}}
+                        onChange={() => filterItemsByColor(colorButton)}
+                        checked={isColorChecked(colorButton)}
                         className="color__checkbox"
                         type="checkbox"
                         name="color"
