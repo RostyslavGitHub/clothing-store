@@ -4,7 +4,7 @@ export const contentData = [
     category: "T-shirts & Tops",
     img: "item-img.avif",
     price: "111,00",
-    colors: ["white", "aqua", "lightgreen"],
+    colors: ["white", "black", "purple"],
     sizes: ["S"],
     id: new Date().getTime() + Math.random(1, 1000000000),
   },

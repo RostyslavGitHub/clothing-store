@@ -5,8 +5,8 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
   const [catalogData, setCatalogData] = useState(contentData);
   const [activeButton, setActiveButton] = useState("All");
   const [checkedColors, setCheckedColors] = useState([]);
-  const [selectedSize, setSelectedSize] = useState(0)
-  
+  const [selectedSize, setSelectedSize] = useState(0);
+
   const sectionButtons = [...new Set(contentData.map((item) => item.category))];
 
   const colorsButtons = contentData.reduce((colors, item) => {
@@ -18,11 +18,11 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
     return colors;
   }, []);
 
-  const sizesOptions = ["All", "XS", "S", "M", "L"];
+  const sizesOptions = ["All", "XS", "S", "M", "L", "XL", "XXL"];
 
   useEffect(() => {
-    filterItems(activeButton, checkedColors);
-  }, [activeButton, checkedColors, selectedSize, catalogData]);
+    filterItems(activeButton, checkedColors, selectedSize);
+  }, [activeButton, checkedColors, selectedSize, contentData]);  
 
   const scrollToTop = () => {
     const c =
@@ -34,7 +34,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
     }
   };
 
-  const filterItems = (section, colors) => {
+  const filterItems = (section, colors, size) => {
     let filteredData = contentData;
     if (section !== "All") {
       filteredData = contentData.filter((item) => item.category === section);
@@ -48,9 +48,12 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
       );
     }
 
-    if (selectedSize > 0) {
-      filteredData = filteredData.filter(item => item.sizes.includes(sizesOptions[selectedSize]));
+    if (size > 0) {
+      filteredData = filteredData.filter(
+        (item) => item.sizes.includes(sizesOptions[size])
+      );
     }
+    
     setCatalogData(filteredData);
   };
 
@@ -71,10 +74,6 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
   const isColorChecked = (color) => {
     return checkedColors.includes(color);
   };
-
-  const handleSizeChange = () => {
-
-  }
 
   return (
     <div className="content">
@@ -145,48 +144,72 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
               <div className="size-container">
                 <h3 className="option-title">Size:</h3>
                 <div className="size-dropdown">
-                  <button className="button-right" onClick={()=> setSelectedSize(prevCount => prevCount > 0 ? prevCount - 1 : sizesOptions.length - 1)}>&lt;</button>
+                  <button
+                    className="button-right"
+                    onClick={() =>
+                      setSelectedSize((prevCount) =>
+                        prevCount > 0 ? prevCount - 1 : sizesOptions.length - 1
+                      )
+                    }
+                  >
+                    &lt;
+                  </button>
                   {sizesOptions[selectedSize]}
-                  <button className="button-left" onClick={()=> setSelectedSize(prevCount => prevCount < sizesOptions.length - 1 ? prevCount + 1 : 0)}>&gt;</button>
-                  </div>
+                  <button
+                    className="button-left"
+                    onClick={() =>
+                      setSelectedSize((prevCount) =>
+                        prevCount < sizesOptions.length - 1 ? prevCount + 1 : 0
+                      )
+                    }
+                  >
+                    &gt;
+                  </button>
+                </div>
               </div>
             </div>
           </>
         )}
 
         <div className="content__row">
-          {catalogData.map((item) => (
-            <div key={item.id} className="item">
-              <img
-                src={"images/" + item.img}
-                alt={item.title}
-                className="item__img"
-              />
-              <div className="item__title">{item.title}</div>
-              <div className="price">
-                {item.sale ? (
-                  <span>
-                    <span style={{ color: "#FF5733" }}>€{item.sale}</span>{" "}
-                    <span
-                      style={{
-                        textDecoration: "line-through",
-                        fontSize: "1rem",
-                      }}
-                    >
-                      €{item.price}
-                    </span>
-                  </span>
-                ) : (
-                  <span>€{item.price}</span>
-                )}
+          {catalogData.length > 0 ? (
+            catalogData.map((item) => (
+              <div key={item.id} className="item">
                 <img
-                  src="images/shopping-cart.png"
-                  alt="Shopping cart"
-                  className="shopcart"
+                  src={"images/" + item.img}
+                  alt={item.title}
+                  className="item__img"
                 />
+                <div className="item__title">{item.title}</div>
+                <div className="price">
+                  {item.sale ? (
+                    <span>
+                      <span style={{ color: "#FF5733" }}>€{item.sale}</span>{" "}
+                      <span
+                        style={{
+                          textDecoration: "line-through",
+                          fontSize: "1rem",
+                        }}
+                      >
+                        €{item.price}
+                      </span>
+                    </span>
+                  ) : (
+                    <span>€{item.price}</span>
+                  )}
+                  <img
+                    src="images/shopping-cart.png"
+                    alt="Shopping cart"
+                    className="shopcart"
+                  />
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="hero__title" style={{ marginTop: "60px" }}>
+              No items found
             </div>
-          ))}
+          )}
         </div>
       </div>
 
