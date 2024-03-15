@@ -191,10 +191,12 @@ textarea:focus {
   height: 100px;
   z-index: 1000;
   transition: 1s;
+  overflow: hidden;
 }
 .header__nav-main {
   display: flex;
   flex-direction: column;
+  height: 100px;
 }
 .header__logo {
   font-family: "Montserrat", sans-serif;
@@ -287,6 +289,24 @@ textarea:focus {
   margin: 0px 18px 0 14px;
   display: block;
   cursor: pointer;
+  position: relative;
+}
+.header__cart-logo .count{
+  content: "2";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  background-color: #6100ff;
+  position: absolute;
+  top: 12px;
+  right: -8px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 11px;
+  line-height: 2;
+  border: 1px solid #000;
 }
 .header__lang-settings {
   display: flex;
@@ -300,6 +320,7 @@ textarea:focus {
 @media (min-width: 1165px) {
   .header__nav-main {
     flex-direction: row;
+    height: auto;
   }
   .header__nav-extended {
     display: flex;
@@ -316,6 +337,10 @@ textarea:focus {
   .header__nav-menu {
     line-height: 1.2;
     flex-direction: row;
+  }
+  .header__cart-logo .count{
+    top: -2px;
+    right: -11px;
   }
 }
 .burger-menu__container {
@@ -344,6 +369,7 @@ textarea:focus {
 }
 .burger-menu .search-and-cart {
   margin: 20px 0;
+  align-items: center;
 }
 
 .burger-menu .active--header__lang {

@@ -198,6 +198,7 @@ const Header = ({ contact, setFilteredInput }) => {
                 alt="Shopping cart link."
                 height={30}
               />
+              <div className="count">0</div>
             </span>
           </div>
           <div className="header__lang-settings">

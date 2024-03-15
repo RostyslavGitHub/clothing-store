@@ -28,17 +28,17 @@ const Footer = () => {
                 className="footer__link"
                 href="mailto:forwork.rostislav@gmail.com"
               >
-                Contact us by email
+                Contact the developer by email
               </a>
             </li>
             <li>
-              <a className="footer__link" href="">
-                Shipping policy
+              <a className="footer__link" href="https://github.com/RostyslavGitHub" target="_blanck">
+                GitHub of the developer
               </a>
             </li>
             <li>
-              <a className="footer__link" href="">
-                Refund Policy
+              <a className="footer__link" href="" target="_blanck">
+                The resume of the developer
               </a>
             </li>
           </ul>
