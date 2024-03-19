@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ contact, setFilteredInput }) => {
+const Header = ({ contact, setFilteredInput, cartContentData }) => {
   const navigate = useNavigate();
 
   const closeBurgerMenu = () => {
@@ -152,9 +152,9 @@ const Header = ({ contact, setFilteredInput }) => {
                   height={25}
                 />
               </div>
-              <span className="header__cart-logo">
+              <span className="header__cart-logo" onClick={addCart}>
                 <img
-                  onClick={addCart}
+                  
                   src="images/shopping-cart.png"
                   alt="Shopping cart link."
                   height={30}
@@ -188,17 +188,16 @@ const Header = ({ contact, setFilteredInput }) => {
                 }}
               />
             </div>
-            <span className="header__cart-logo">
-              <img
-                onClick={() => {
+            <span className="header__cart-logo" onClick={() => {
                   closeBurgerMenu();
                   addCart();
-                }}
-                src="images/shopping-cart.png"
+                }}>
+              <img
+                src="../images/shopping-cart.png"
                 alt="Shopping cart link."
                 height={30}
               />
-              <div className="count">0</div>
+              <div className="count">{cartContentData.length}</div>
             </span>
           </div>
           <div className="header__lang-settings">

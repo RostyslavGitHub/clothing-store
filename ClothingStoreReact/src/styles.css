@@ -738,9 +738,6 @@ textarea:focus {
   justify-content: space-between;
   gap: 30px;
 }
-.full-item__info button {
-  margin-bottom: 20px;
-}
 .full-item__title {
   font-size: 3rem;
 }
@@ -844,6 +841,7 @@ textarea:focus {
   font-size: 18px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .accordion {
@@ -852,6 +850,7 @@ textarea:focus {
   border-top: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
   cursor: pointer;
+  overflow: hidden;
 }
 .accordion__title {
   font-size: 1.4rem;
@@ -869,6 +868,12 @@ textarea:focus {
 .accordion__body {
   line-height: 1.5;
   margin: 3px 0;
+  padding: 0 0 6px 10px;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  transition: 0.5s;
 }
 
 @media (min-width: 830px) {
@@ -894,10 +899,10 @@ textarea:focus {
 }
 
 .cart {
-  margin-top: 100px;
+  margin: 100px 20px 20px 20px;
   border: 1px solid #6100ff;
   width: 500px;
-  height: 700px;
+  height: 80%;
   overflow-y: auto;
   background: #000;
   z-index: 1001;
@@ -906,11 +911,6 @@ textarea:focus {
   justify-content: space-between;
 }
 
-@media (max-height: 700px) {
-  .cart {
-    height: 70%;
-  }
-}
 .cart__header {
   height: 60px;
   border-bottom: 1px solid #6100ff;
@@ -925,6 +925,12 @@ textarea:focus {
 .cart__close-icon {
   margin-top: 2px;
   cursor: pointer;
+}
+.cart__no-items-title{
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #6100ff;
 }
 .shipping-info {
   text-align: center;
@@ -1111,6 +1117,13 @@ textarea:focus {
 
 /* actives */
 
+.active{
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+  transition: 0.5s;
+}
+
 .active--header__lang {
   color: #6100ff;
   font-weight: 700;
@@ -1156,10 +1169,6 @@ textarea:focus {
 
 .input-error {
   border: 2px solid red;
-}
-
-.recommendations-content {
-  min-height: 0;
 }
 
 .overflowHidden {

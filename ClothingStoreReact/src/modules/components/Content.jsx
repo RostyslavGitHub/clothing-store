@@ -18,7 +18,7 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
     return colors;
   }, []);
 
-  const sizesOptions = ["All", "XS", "S", "M", "L", "XL", "XXL"];
+  const sizesOptions = ["All", "S", "M", "L", "XL", "2XL", "3XL"];
 
   useEffect(() => {
     filterItems(activeButton, checkedColors, selectedSize);
@@ -33,6 +33,16 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
       window.scrollTo(0, c - c / 8);
     }
   };
+
+  const instantScrollToTop = () => {
+    const c =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (c > 0) {
+      window.requestAnimationFrame(scrollToTop);
+      window.scrollTo(0, 0);
+    }
+  }
 
   const filterItems = (section, colors, size) => {
     let filteredData = contentData;
@@ -175,11 +185,13 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
           {catalogData.length > 0 ? (
             catalogData.map((item) => (
               <div key={item.id} className="item">
+                <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
                 <img
-                  src={"images/" + item.img}
+                  src={"../images/" + item.img}
                   alt={item.title}
                   className="item__img"
                 />
+                </Link>
                 <div className="item__title">{item.title}</div>
                 <div className="price">
                   {item.sale ? (
@@ -197,11 +209,14 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
                   ) : (
                     <span>€{item.price}</span>
                   )}
-                  <img
-                    src="images/shopping-cart.png"
+                  <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
+                    <img
+                    src="../images/shopping-cart.png"
                     alt="Shopping cart"
                     className="shopcart"
                   />
+                  </Link>
+                  
                 </div>
               </div>
             ))

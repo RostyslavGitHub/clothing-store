@@ -37,7 +37,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a className="footer__link" href="" target="_blanck">
+              <a className="footer__link" href="Rostyslav  Zhuravel's resume.pdf" download>
                 The resume of the developer
               </a>
             </li>
