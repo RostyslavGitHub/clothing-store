@@ -184,14 +184,13 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
         <div className="content__row">
           {catalogData.length > 0 ? (
             catalogData.map((item) => (
+            <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
               <div key={item.id} className="item">
-                <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
                 <img
-                  src={"../images/" + item.img}
+                  src={"../images/" + item.images[0][0]}
                   alt={item.title}
                   className="item__img"
                 />
-                </Link>
                 <div className="item__title">{item.title}</div>
                 <div className="price">
                   {item.sale ? (
@@ -209,16 +208,14 @@ const Content = ({ contentData, contentTitle, isButtonThere, isNavThere }) => {
                   ) : (
                     <span>€{item.price}</span>
                   )}
-                  <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
                     <img
                     src="../images/shopping-cart.png"
                     alt="Shopping cart"
                     className="shopcart"
                   />
-                  </Link>
-                  
                 </div>
               </div>
+              </Link>
             ))
           ) : (
             <div className="hero__title" style={{ marginTop: "60px" }}>

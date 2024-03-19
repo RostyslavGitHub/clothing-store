@@ -5,11 +5,21 @@ import Content from './components/Content'
 
 const CatalogItemPage = ({contentData, addToTheCart}) => {
     const [checkedColor, setCheckedColor] = useState();
+    const [selectedColor, setSelectedColor] = useState(0);
     const [selectedSize, setSelectedSize] = useState(0);
     const {catalogItemTitle} = useParams();
-
-    const sizesOptions = [ "S", "M", "L", "XL", "2XL", "3XL"];
+    
     const selectedItem = contentData.filter((item) => item.title === catalogItemTitle);
+
+    const sizesOptions = selectedItem.reduce((availableSizes, item) => {
+      item.sizes.forEach(size => {
+        if (!availableSizes.includes(size)) {
+          availableSizes.push(size);
+        }
+      });
+      return availableSizes;
+    }, []);
+    
     const colorsButtons = selectedItem.reduce((colors, item) => {
         item.colors.forEach((color) => {
           if (!colors.includes(color)) {
@@ -25,6 +35,7 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
 
     const handleColorToggle = (color) => {
         setCheckedColor(color);
+        setSelectedColor(colorsButtons.indexOf(color))
       };
     
       const isColorChecked = (color) => {
@@ -36,9 +47,9 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
         <div className="full-item-container">
             <div className="full-item">
             <div className="full-item__images">
-                <img src={"../images/" + selectedItem[0].img} alt="" className="full-item__img" />
-                <img src={"../images/" + selectedItem[0].img} alt="" className="full-item__img" />
-                <img src={"../images/" + selectedItem[0].img} alt="" className="full-item__img" />
+                <img src={"../images/" + selectedItem[0].images[selectedColor][0]} alt="" className="full-item__img" />
+                <img src={"../images/" + selectedItem[0].images[selectedColor][1]} alt="" className="full-item__img" />
+                <img src={"../images/" + selectedItem[0].images[selectedColor][2]} alt="" className="full-item__img" />
             </div>
             <div className="full-item__info">
                 <div>
@@ -121,10 +132,10 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
                 <div className="accordion" 
                 onClick={()=>{
                   const fullItemDescription = document.getElementById('full-item__description')
-                  fullItemDescription.classList.toggle('active')
+                  fullItemDescription.classList.toggle('active-accordion')
                 }}>
                     <div className="accordion__title">Product description</div>
-                    <div className="accordion__body" id="full-item__description">
+                    <div className="accordion__body active-accordion" id="full-item__description">
                         {selectedItem[0].title}: <br />
                         {selectedItem[0].description.map((line, index) => <span key={index}>{line} <br /></span>)}                  
                     </div>
@@ -132,7 +143,7 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
                 <div className="accordion"
                 onClick={()=>{
                   const fullItemSizesDescription = document.getElementById('full-item__sizes-descroption')
-                  fullItemSizesDescription.classList.toggle('active')
+                  fullItemSizesDescription.classList.toggle('active-accordion')
                 }}>
                     <div className="accordion__title">Dimensions</div>
                     <div className="accordion__body" id="full-item__sizes-descroption">

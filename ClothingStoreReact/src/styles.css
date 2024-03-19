@@ -511,6 +511,7 @@ textarea:focus {
   flex-direction: column;
   justify-content: space-between;
   word-break: break-word;
+  color: #ffffff;
 }
 .item__img {
   min-width: 260px;
@@ -868,7 +869,7 @@ textarea:focus {
 .accordion__body {
   line-height: 1.5;
   margin: 3px 0;
-  padding: 0 0 6px 10px;
+  padding-right: 10px;
   transition: 0.5s;
   opacity: 0;
   visibility: hidden;
@@ -1117,11 +1118,12 @@ textarea:focus {
 
 /* actives */
 
-.active{
+.active-accordion{
   opacity: 1;
   visibility: visible;
   height: auto;
   transition: 0.5s;
+  padding-bottom: 6px;
 }
 
 .active--header__lang {
