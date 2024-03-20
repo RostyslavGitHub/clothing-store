@@ -59,8 +59,6 @@ const TrackOrderForm = () =>{
                     type="text"
                     maxLength="8"
                     className="input"
-                    allowFullScreen=""
-                    loading="async"
                     placeholder="Order number (8 digits)"
                     />
                 <button onClick={submitTrackOrder} className={ (input.split('').length > 7) ? "button" : "button disable-button"} type="button" disabled={input.split('').length < 7} >track</button>

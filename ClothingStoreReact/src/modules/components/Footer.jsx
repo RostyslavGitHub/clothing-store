@@ -32,7 +32,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a className="footer__link" href="https://github.com/RostyslavGitHub" target="_blanck">
+              <a className="footer__link" href="https://github.com/RostyslavGitHub" target="_blanck" rel="noopener noreferrer">
                 GitHub of the developer
               </a>
             </li>

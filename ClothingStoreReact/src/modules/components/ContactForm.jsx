@@ -3,20 +3,19 @@ import React from "react";
 const ContactForm = ({ contact }) => {
   return (
     <div ref={contact} className="form-container">
-      <form action="" className="form">
+      <form className="form" name="contact" method="POST" data-netlify="true">
         <h2 className="title">Contact us</h2>
-        <input type="text" className="input" placeholder="Name" />
-        <input type="text" className="input" placeholder="Email" />
+        <input type="text" name="name" className="input" placeholder="Name" />
+        <input type="email" name="email" className="input" placeholder="Email" />
         <textarea
-          name=""
-          id=""
+          name="message"
           cols={30}
           rows={10}
           className="textarea"
           placeholder="Comment"
           defaultValue={""}
         />
-        <button className="button">Send</button>
+        <button className="button" type="submit">Send</button>
       </form>
       <div className="about-us">
         <h2 className="title">About us</h2>

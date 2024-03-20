@@ -4,9 +4,9 @@ import Content from './components/Content';
 import TrackOrderForm from './components/TrackOrderForm';
 import Banner from './components/Banner';
 import ContactForm from './components/ContactForm';
-const MainPage = ({contentData, contact, addToTheCart}) =>{
+const MainPage = ({contentData, contact}) =>{
     
-    const bestsellers = contentData.filter(item => item.bestseller === true);
+    const bestsellers = contentData.filter(item => item.bestseller);
     const latestArrivals = contentData.slice(-3);
 
     return(

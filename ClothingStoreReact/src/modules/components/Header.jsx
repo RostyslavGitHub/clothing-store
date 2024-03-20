@@ -66,7 +66,6 @@ const Header = ({ contact, setFilteredInput, cartContentData }) => {
               closeBurgerMenu();
               removeCart();
             }}
-            className="header__logo"
           >
             <div className="header__logo">clothing shop®</div>
           </Link>
@@ -144,7 +143,7 @@ const Header = ({ contact, setFilteredInput, cartContentData }) => {
 
             <div className="search-and-cart">
               <div className="header__search">
-                <input type="text" className="header__search-bar" />
+                <input type="text" className="header__search-bar" placeholder="Search"/>
                 <img
                   src="images/search.png"
                   alt=""
@@ -173,10 +172,11 @@ const Header = ({ contact, setFilteredInput, cartContentData }) => {
                   removeCart();
                 }}
                 type="text"
+                placeholder="Search"
                 className="header__search-bar"
               />
               <img
-                src="images/search.png"
+                src="../images/search.png"
                 alt=""
                 className="header__search-bar-img"
                 height={25}

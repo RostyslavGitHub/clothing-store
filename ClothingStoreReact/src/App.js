@@ -33,9 +33,9 @@ function App() {
     setCartContentData([...cartContentData, item]);
   }
 
-  const specifyClororAndSize = (color, size) => {
+  const specifyColorAndSize = (color, colorIndex, size) => {
     const sizesOptions = ["S", "M", "L", "XL", "2XL", "3XL"];
-    setItemColorAndSize([color, sizesOptions[size]])
+    setItemColorAndSize([color, colorIndex, sizesOptions[size]])
   }
   
   const decreaseItemsCount = (itemId) => {
@@ -93,7 +93,7 @@ function App() {
               <CatalogItemPage 
                 contentData={contentData} 
                 addToTheCart={addToTheCart}
-                specifyClororAndSize={specifyClororAndSize}
+                specifyColorAndSize={specifyColorAndSize}
                 
               />
             }

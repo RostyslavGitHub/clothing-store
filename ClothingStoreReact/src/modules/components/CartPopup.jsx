@@ -50,7 +50,7 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
 
       return (
         <div key={item.id} className="cart__item">
-          <img src={"../images/" + item.images[0][0]} alt={item.title} className="cart__img" />
+          <img src={"../images/" + item.images[[0]][0]} alt={item.title} className="cart__img" />
           <div className="cart__info">
             <div>
               <div className="cart__title-delete-row">
@@ -68,16 +68,8 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
                   </svg>
                 </div>
               </div>
-              <div className="cart__size">Size: {itemColorAndSize[1]}</div>
-              <div className="cart__size">Color: {itemColorAndSize[0]}</div>
             </div>
-            <div className="cart__quantity-price-row">
-              <div className="cart__quantity">
-                <button className="cart__quantity-sqr" onClick={() => decreaseItemsCount(item.id)}>-</button>
-                <div className="cart__quantity-sqr">{`${quantity[item.id]}`}</div>
-                <button className="cart__quantity-sqr" onClick={() => addToTheCart(item)}>+</button>
-              </div>
-              {item.sale ? (
+            {item.sale ? (
                 <span>
                   <span
                     style={{
@@ -94,6 +86,13 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
               ) : (
                 <span className="cart__price">€{item.price}</span>
               )}
+            <div className="cart__quantity-price-row">
+              <div className="cart__quantity">
+                <button className="cart__quantity-sqr" onClick={() => decreaseItemsCount(item.id)}>-</button>
+                <div className="cart__quantity-sqr">{`${quantity[item.id]}`}</div>
+                <button className="cart__quantity-sqr" onClick={() => addToTheCart(item)}>+</button>
+              </div>
+              
             </div>
           </div>
         </div>
