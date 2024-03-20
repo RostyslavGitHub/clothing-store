@@ -588,9 +588,6 @@ textarea:focus {
   flex-wrap: nowrap;
   text-shadow: 1px 1px 5px #6100ff;
 }
-.reviews__star:last-child {
-  color: #ffffff;
-}
 .reviews__username {
   font-weight: bold;
   font-size: 1.2rem;
@@ -708,6 +705,7 @@ textarea:focus {
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-evenly;
+  min-height: 580px;
 }
 .full-item__images {
   width: 100%;
@@ -716,7 +714,7 @@ textarea:focus {
   flex-wrap: wrap;
   border: 1px solid #6100ff;
   background-color: #6100ff;
-  max-height: 600px;
+  height: 580px;
 }
 .full-item__img {
   width: 50%;
@@ -738,6 +736,7 @@ textarea:focus {
   flex-direction: column;
   justify-content: space-between;
   gap: 30px;
+  min-height: 580px;
 }
 .full-item__title {
   font-size: 3rem;
@@ -846,7 +845,7 @@ textarea:focus {
 }
 
 .accordion {
-  margin: 10px 0;
+  margin: 10px 0 0 0;
   min-height: 40px;
   border-top: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;

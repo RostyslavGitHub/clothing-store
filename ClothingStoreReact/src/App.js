@@ -32,6 +32,21 @@ function App() {
     setCartContentData([...cartContentData, item]);
   }
   
+  const decreaseItemsCount = (itemId) => {
+    let updatedCartContent = [...cartContentData];
+    const itemIndex = updatedCartContent.findIndex((item) => item.id === itemId);
+  
+      if (itemIndex !== -1) {
+        if (updatedCartContent[itemIndex].quantity > 1) {
+          updatedCartContent[itemIndex].quantity -= 1;
+        } else {
+          updatedCartContent.splice(itemIndex, 1);
+        }
+      } 
+      
+      setCartContentData(updatedCartContent);
+  };
+
   return (
     <BrowserRouter>
     
@@ -90,7 +105,10 @@ function App() {
 
       <CartPopup 
         cartContentData={cartContentData} 
-        key={cartContentData}/>
+        setCartContentData={setCartContentData}
+        decreaseItemsCount={decreaseItemsCount}
+        addToTheCart={addToTheCart}/>
+        
     </BrowserRouter>
   );
 }
