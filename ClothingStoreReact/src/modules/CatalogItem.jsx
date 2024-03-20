@@ -4,7 +4,7 @@ import StarsBelt from './components/StarsBelt'
 import Content from './components/Content'
 import Reviews from "./components/Reviews";
 
-const CatalogItemPage = ({contentData, addToTheCart}) => {
+const CatalogItemPage = ({contentData, addToTheCart, specifyClororAndSize}) => {
     const [checkedColor, setCheckedColor] = useState();
     const [selectedColor, setSelectedColor] = useState(0);
     const [selectedSize, setSelectedSize] = useState(0);
@@ -129,7 +129,7 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
 
                 </div>
                 <div>
-                <button className="button" onClick={()=>{addToTheCart(selectedItem[0]); }}>Add to cart</button>
+                <button className="button" onClick={()=>{addToTheCart(selectedItem[0]); specifyClororAndSize(colorsButtons[selectedColor], selectedSize) }}>Add to cart</button>
                 <div className="accordion" 
                 onClick={()=>{
                   const fullItemDescription = document.getElementById('full-item__description')
@@ -164,7 +164,7 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
         
         <Reviews selectedItem={selectedItem}/>
 
-        <Content contentData={contentData.filter(item => item.bestseller === false && item.id === selectedItem.id).slice(-4)} contentTitle={'Recommendations'} isButtonThere={false} isNavThere={false}/>
+        <Content contentData={contentData.filter(item => item.bestseller === true && item.id !== selectedItem[0].id).slice(-4)} contentTitle={'Recommendations'} isButtonThere={false} isNavThere={false}/>
         </>
     )
 }

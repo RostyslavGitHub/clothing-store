@@ -752,7 +752,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   width: 200px;
-  height: 46px;
+  height: 48px;
   flex-wrap: wrap;
   overflow-y: auto;
 }

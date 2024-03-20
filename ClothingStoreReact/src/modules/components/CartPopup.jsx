@@ -1,6 +1,6 @@
 import React from "react";
 
-const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart }) => {
+const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart, itemColorAndSize }) => {
 
   const removeCart = () => {
     const cartPopup = document.querySelector(".cart-container");
@@ -68,7 +68,8 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
                   </svg>
                 </div>
               </div>
-              <div className="cart__size">Size: XS</div>
+              <div className="cart__size">Size: {itemColorAndSize[1]}</div>
+              <div className="cart__size">Color: {itemColorAndSize[0]}</div>
             </div>
             <div className="cart__quantity-price-row">
               <div className="cart__quantity">

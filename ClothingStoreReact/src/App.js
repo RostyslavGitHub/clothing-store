@@ -15,6 +15,7 @@ function App() {
   const [filteredInput, setFilteredInput] = useState("");
   const [filteredItems, setFilteredItems] = useState(contentData);
   const [cartContentData, setCartContentData] = useState([]);
+  const [itemColorAndSize, setItemColorAndSize] = useState([])
   const contact = useRef(null);
 
   useEffect(() => {
@@ -30,6 +31,11 @@ function App() {
 
   const addToTheCart = (item) =>{
     setCartContentData([...cartContentData, item]);
+  }
+
+  const specifyClororAndSize = (color, size) => {
+    const sizesOptions = ["S", "M", "L", "XL", "2XL", "3XL"];
+    setItemColorAndSize([color, sizesOptions[size]])
   }
   
   const decreaseItemsCount = (itemId) => {
@@ -87,6 +93,8 @@ function App() {
               <CatalogItemPage 
                 contentData={contentData} 
                 addToTheCart={addToTheCart}
+                specifyClororAndSize={specifyClororAndSize}
+                
               />
             }
           />
@@ -107,7 +115,8 @@ function App() {
         cartContentData={cartContentData} 
         setCartContentData={setCartContentData}
         decreaseItemsCount={decreaseItemsCount}
-        addToTheCart={addToTheCart}/>
+        addToTheCart={addToTheCart}
+        itemColorAndSize={itemColorAndSize}/>
         
     </BrowserRouter>
   );
