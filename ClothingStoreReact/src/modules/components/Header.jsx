@@ -134,11 +134,11 @@ const Header = ({ contact, setFilteredInput, cartContentData }) => {
                 Cart
               </span>
 
-              <div className="header__lang-settings">
+              {/* <div className="header__lang-settings">
                 <div className="header__lang">UA</div>
                 <div>&nbsp;/&nbsp;</div>
                 <div className="header__lang active--header__lang">ENG</div>
-              </div>
+              </div> */}
             </div>
 
             <div className="search-and-cart">
@@ -200,11 +200,11 @@ const Header = ({ contact, setFilteredInput, cartContentData }) => {
               <div className="count">{cartContentData.length}</div>
             </span>
           </div>
-          <div className="header__lang-settings">
+          {/* <div className="header__lang-settings">
             <div className="header__lang">UA</div>
             <div>&nbsp;/&nbsp;</div>
             <div className="header__lang active--header__lang">ENG</div>
-          </div>
+          </div> */}
         </div>
       </header>
       <div style={{ height: 100 }} />

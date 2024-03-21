@@ -5,12 +5,11 @@ import Content from './components/Content'
 import Reviews from "./components/Reviews";
 
 const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
+    const { catalogItemTitle } = useParams();
     const [checkedColor, setCheckedColor] = useState();
     const [selectedColor, setSelectedColor] = useState(0);
     const [selectedSize, setSelectedSize] = useState(0);
-    const { catalogItemTitle } = useParams();
-    
-    const selectedItem = contentData.filter((item) => item.title === catalogItemTitle);
+    const [selectedItem, setSelectedItem] = useState(contentData.filter((item) => item.title === catalogItemTitle))
 
     const sizesOptions = selectedItem.reduce((availableSizes, item) => {
       item.sizes.forEach(size => {
@@ -31,19 +30,57 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
       }, []);
 
     useEffect(() => {
-        setCheckedColor(colorsButtons[0]);
+        handleColorToggle(colorsButtons[0], 0)
         setSelectedSize(0);
-        setSelectedColor(0)
     }, [catalogItemTitle]);
 
     const handleColorToggle = (color, index) => {
         setCheckedColor(color);
         setSelectedColor(index);
+    
+        setSelectedItem(prevItems => {
+            const updatedItems = prevItems.map(item => {
+                if (item.title === catalogItemTitle) {
+                    const newId = getColorId(item, colorsButtons[index]);
+                    const updatedColorIdMap = {
+                        ...item.colorIdMap,
+                        [colorsButtons[index]]: {
+                            id: newId,
+                            count: (item.colorIdMap[colorsButtons[index]] || { count: 0 }).count + 1
+                        }
+                    };
+                    return {
+                        ...item,
+                        choosenColor: colorsButtons[index],
+                        id: newId,
+                        colorIdMap: updatedColorIdMap
+                    };
+                }
+                return item;
+            });
+            return updatedItems;
+        });
+    };
+
+    const getColorId = (item, color) => {
+        const colorIdMap = item.colorIdMap || {};
+        if (colorIdMap[color]) {
+            return colorIdMap[color].id;
+        } else {
+            const newId = generateUniqueID();
+            colorIdMap[color] = { id: newId, count: 0 };
+            return newId;
+        }
+    };
+
+    const generateUniqueID = () => {
+        return '_' + Math.random().toString(36).substr(2, 9);
     };
     
     const isColorChecked = (color) => {
         return checkedColor === color;
     };
+    
     
     return (
         <>
@@ -113,12 +150,12 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
                                         }
                                     >
                                         &gt;
-                                    </button> 
+                                    </button>  
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button className="button" onClick={() => { addToTheCart(selectedItem[0]); specifyColorAndSize(colorsButtons[selectedColor], selectedColor, selectedSize) }}>Add to cart</button>
+                            <button className="button" onClick={() => {addToTheCart(selectedItem[0]); }}>Add to cart</button>
                             <div className="accordion" onClick={() => {
                                 const fullItemDescription = document.getElementById('full-item__description');
                                 fullItemDescription.classList.toggle('active-accordion');
@@ -149,7 +186,7 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
 
             <StarsBelt />
 
-            <Reviews selectedItem={selectedItem} key={selectedItem[0].id}/>
+            {/* <Reviews selectedItem={selectedItem} key={selectedItem[0].id}/> */}
 
             <Content contentData={contentData.filter(item => item.bestseller === true && item.id !== selectedItem[0].id).slice(-4)} contentTitle={'Recommendations'} isButtonThere={false} isNavThere={false}/>
         </>
