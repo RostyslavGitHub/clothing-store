@@ -181,48 +181,49 @@ const Content = ({contentData, contentTitle, isButtonThere, isNavThere }) => {
         </>
       )}
 
-      <div className="content__row">
-        {catalogData.length > 0 ? (
-          catalogData.map((item) => (
-          <Link key={item.id} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
-            <div key={item.id} className="item">
-              <img
-                src={"../images/" + item.images[0][0]}
-                alt={item.title}
-                className="item__img"
-              />
-              <div className="item__title">{item.title}</div>
-              <div className="price">
-                {item.sale ? (
-                  <span>
-                    <span style={{ color: "#FF5733" }}>€{item.sale}</span>{" "}
-                    <span
-                      style={{
-                        textDecoration: "line-through",
-                        fontSize: "1rem",
-                      }}
-                    >
-                      €{item.price}
-                    </span>
-                  </span>
-                ) : (
-                  <span>€{item.price}</span>
-                )}
-                  <img
-                  src="../images/shopping-cart.png"
-                  alt="Shopping cart"
-                  className="shopcart"
-                />
-              </div>
-            </div>
-            </Link>
-          ))
-        ) : (
-          <div className="hero__title" style={{ marginTop: "60px" }}>
-            No items found
+<div className="content__row">
+  {catalogData.length > 0 ? (
+    catalogData.map((item, index) => (
+      <Link key={index} to={`/catalog/${item.title}`} onClick={instantScrollToTop}>
+        <div className="item">
+          <img
+            src={"../images/" + item.images[0][0]}
+            alt={item.title}
+            className="item__img"
+          />
+          <div className="item__title">{item.title}</div>
+          <div className="price">
+            {item.sale ? (
+              <span>
+                <span style={{ color: "#FF5733" }}>€{item.sale}</span>{" "}
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    fontSize: "1rem",
+                  }}
+                >
+                  €{item.price}
+                </span>
+              </span>
+            ) : (
+              <span>€{item.price}</span>
+            )}
+            <img
+              src="../images/shopping-cart.png"
+              alt="Shopping cart"
+              className="shopcart"
+            />
           </div>
-        )}
-      </div>
+        </div>
+      </Link>
+    ))
+  ) : (
+    <div className="hero__title" style={{ marginTop: "60px" }}>
+      No items found
+    </div>
+  )}
+</div>
+
     </div>
 
     {isButtonThere && (

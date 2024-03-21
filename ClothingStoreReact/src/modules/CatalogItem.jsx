@@ -4,7 +4,7 @@ import StarsBelt from './components/StarsBelt'
 import Content from './components/Content'
 import Reviews from "./components/Reviews";
 
-const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
+const CatalogItemPage = ({contentData, addToTheCart}) => {
     const { catalogItemTitle } = useParams();
     const [checkedColor, setCheckedColor] = useState();
     const [selectedColor, setSelectedColor] = useState(0);
@@ -34,6 +34,10 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
         setSelectedSize(0);
     }, [catalogItemTitle]);
 
+    useEffect(() => {
+        setSelectedItem(contentData.filter((item) => item.title === catalogItemTitle))
+    }, [catalogItemTitle, contentData]);
+
     const handleColorToggle = (color, index) => {
         setCheckedColor(color);
         setSelectedColor(index);
@@ -51,15 +55,47 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
                     };
                     return {
                         ...item,
-                        choosenColor: colorsButtons[index],
+                        choosenColor: index,
                         id: newId,
-                        colorIdMap: updatedColorIdMap
+                        colorIdMap: updatedColorIdMap,
+                        choosenSize: sizesOptions[selectedSize], 
                     };
                 }
                 return item;
             });
             return updatedItems;
         });
+    };
+    
+    const handleSizeToggle = (sizeIndex) => {
+        setSelectedSize(sizeIndex);
+    
+        setSelectedItem(prevItems => {
+            const updatedItems = prevItems.map(item => {
+                if (item.title === catalogItemTitle) {
+                    const newId = getColorId(item, colorsButtons[selectedColor]);
+                    const updatedColorIdMap = {
+                        ...item.colorIdMap,
+                        [colorsButtons[selectedColor]]: {
+                            id: newId,
+                            count: (item.colorIdMap[colorsButtons[selectedColor]] || { count: 0 }).count + 1
+                        }
+                    };
+                    return {
+                        ...item,
+                        choosenSize: sizesOptions[sizeIndex],
+                        id: newId,
+                        colorIdMap: updatedColorIdMap,
+                    };
+                }
+                return item;
+            });
+            return updatedItems;
+        });
+    };
+    
+    const handleSizeChange = (sizeIndex) => {
+        handleSizeToggle(sizeIndex);
     };
 
     const getColorId = (item, color) => {
@@ -80,7 +116,6 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
     const isColorChecked = (color) => {
         return checkedColor === color;
     };
-    
     
     return (
         <>
@@ -132,25 +167,17 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
                                 <div className="size-dropdown">
                                     <button
                                         className="button-right"
-                                        onClick={() =>
-                                            setSelectedSize((prevCount) =>
-                                                prevCount > 0 ? prevCount - 1 : sizesOptions.length - 1
-                                            )
-                                        }
+                                        onClick={() =>  handleSizeToggle(selectedSize > 0 ? selectedSize - 1 : sizesOptions.length - 1)}
                                     >
                                         &lt;
                                     </button>
                                     {sizesOptions[selectedSize]}
                                     <button
                                         className="button-left"
-                                        onClick={() =>
-                                            setSelectedSize((prevCount) =>
-                                                prevCount < sizesOptions.length - 1 ? prevCount + 1 : 0
-                                            )
-                                        }
+                                        onClick={() => handleSizeToggle(selectedSize < sizesOptions.length - 1 ? selectedSize + 1 : 0)}
                                     >
                                         &gt;
-                                    </button>  
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +213,7 @@ const CatalogItemPage = ({contentData, addToTheCart, specifyColorAndSize}) => {
 
             <StarsBelt />
 
-            {/* <Reviews selectedItem={selectedItem} key={selectedItem[0].id}/> */}
+            <Reviews selectedItem={selectedItem} key={selectedItem[0].id}/>
 
             <Content contentData={contentData.filter(item => item.bestseller === true && item.id !== selectedItem[0].id).slice(-4)} contentTitle={'Recommendations'} isButtonThere={false} isNavThere={false}/>
         </>

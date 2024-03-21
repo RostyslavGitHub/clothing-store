@@ -5,7 +5,7 @@ import StarsBelt from './StarsBelt';
 const Reviews = ({ selectedItem }) => {
     const [visibleReviews1, setVisibleReviews1] = useState(0)
     const [visibleReviews2, setVisibleReviews2] = useState(2)
-    const filteredData = reviewsData.filter(item => selectedItem.map(item => item.id).includes(item.item));
+    const filteredData = reviewsData.filter(item => selectedItem.map(item => item.title).includes(item.item));
 
     useEffect(()=>{
         setVisibleReviews1(0);

@@ -1,6 +1,8 @@
 import React from "react";
 
-const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart, itemColorAndSize }) => {
+const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart }) => {
+
+  
 
   const removeCart = () => {
     const cartPopup = document.querySelector(".cart-container");
@@ -50,7 +52,7 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
 
       return (
         <div key={item.id} className="cart__item">
-          <img src={"../images/" + item.images[[0]][0]} alt={item.title} className="cart__img" />
+          <img src={"../images/" + item.images[[item.choosenColor]][0]} alt={item.title} className="cart__img" />
           <div className="cart__info">
             <div>
               <div className="cart__title-delete-row">
@@ -69,7 +71,14 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
                 </div>
               </div>
             </div>
-            {item.sale ? (
+            <div className="cart__size">Size: {item.choosenSize}</div>
+            <div className="cart__quantity-price-row">
+              <div className="cart__quantity">
+                <button className="cart__quantity-sqr" onClick={() => decreaseItemsCount(item.id)}>-</button>
+                <div className="cart__quantity-sqr">{`${quantity[item.id]}`}</div>
+                <button className="cart__quantity-sqr" onClick={() => addToTheCart(item)}>+</button>
+              </div>
+              {item.sale ? (
                 <span>
                   <span
                     style={{
@@ -86,13 +95,6 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
               ) : (
                 <span className="cart__price">€{item.price}</span>
               )}
-            <div className="cart__quantity-price-row">
-              <div className="cart__quantity">
-                <button className="cart__quantity-sqr" onClick={() => decreaseItemsCount(item.id)}>-</button>
-                <div className="cart__quantity-sqr">{`${quantity[item.id]}`}</div>
-                <button className="cart__quantity-sqr" onClick={() => addToTheCart(item)}>+</button>
-              </div>
-              
             </div>
           </div>
         </div>
@@ -103,9 +105,10 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
   }
 
   const deleteItem = (itemId) => {
-    const filteredData = cartContentData.filter(item => item.id !== itemId)
+    const filteredData = cartContentData.filter(item => item.id !== itemId);
     setCartContentData(filteredData);
-  }
+    localStorage.setItem('cartContentData', JSON.stringify(filteredData));
+  };
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;

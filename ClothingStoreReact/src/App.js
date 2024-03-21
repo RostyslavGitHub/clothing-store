@@ -15,13 +15,12 @@ function App() {
   const [filteredInput, setFilteredInput] = useState("");
   const [filteredItems, setFilteredItems] = useState(contentData);
   const [cartContentData, setCartContentData] = useState([]);
-  const [itemColorAndSize, setItemColorAndSize] = useState([])
   const contact = useRef(null);
 
   useEffect(() => {
     if (filteredInput.trim() !== "") {
       const filtered = contentData.filter((item) =>
-        item.title.toLowerCase().includes(filteredInput.toLowerCase()),
+        item.title.toLowerCase().includes(filteredInput.toLowerCase())
       );
       setFilteredItems(filtered);
     } else {
@@ -29,95 +28,87 @@ function App() {
     }
   }, [filteredInput]);
 
-  const addToTheCart = (item) =>{
-    setCartContentData([...cartContentData, item]);
-  }
+  const addToTheCart = (item) => {
+    const updatedCart = [...cartContentData, item];
+    setCartContentData(updatedCart);
+    localStorage.setItem('cartContentData', JSON.stringify(updatedCart));
+  };
 
-  const specifyColorAndSize = (color, colorIndex, size) => {
-    const sizesOptions = ["S", "M", "L", "XL", "2XL", "3XL"];
-    setItemColorAndSize([color, colorIndex, sizesOptions[size]])
-  }
-  
   const decreaseItemsCount = (itemId) => {
     let updatedCartContent = [...cartContentData];
     const itemIndex = updatedCartContent.findIndex((item) => item.id === itemId);
-  
-      if (itemIndex !== -1) {
-        if (updatedCartContent[itemIndex].quantity > 1) {
-          updatedCartContent[itemIndex].quantity -= 1;
-        } else {
-          updatedCartContent.splice(itemIndex, 1);
-        }
-      } 
-      
-      setCartContentData(updatedCartContent);
+
+    if (itemIndex !== -1) {
+      if (updatedCartContent[itemIndex].quantity > 1) {
+        updatedCartContent[itemIndex].quantity -= 1;
+      } else {
+        updatedCartContent.splice(itemIndex, 1);
+      }
+    }
+
+    setCartContentData(updatedCartContent);
+    localStorage.setItem('cartContentData', JSON.stringify(updatedCartContent));
   };
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cartContentData');
+    if (savedCart) {
+      setCartContentData(JSON.parse(savedCart));
+    }
+  }, []);
 
   return (
     <BrowserRouter>
-    
       <div className="wrapper">
-
-        <Header 
-          contact={contact} 
+        <Header
+          contact={contact}
           setFilteredInput={setFilteredInput}
-          cartContentData={cartContentData} 
+          cartContentData={cartContentData}
         />
-
         <Routes>
           <Route
             path="/"
             element={
-              <MainPage 
-                contentData={contentData} 
-                contact={contact} 
+              <MainPage
+                contentData={contentData}
+                contact={contact}
                 addToTheCart={addToTheCart}
               />
             }
           />
-
           <Route
             path="/catalog"
             element={
-              <CatalogPage 
-                key={JSON.stringify(filteredItems)} 
-                contentData={filteredItems} 
+              <CatalogPage
+                key={JSON.stringify(filteredItems)}
+                contentData={filteredItems}
                 addToTheCart={addToTheCart}
               />
             }
           />
-
-          <Route 
-            path="/catalog/:catalogItemTitle" 
+          <Route
+            path="/catalog/:catalogItemTitle"
             element={
-              <CatalogItemPage 
-                contentData={contentData} 
+              <CatalogItemPage
+                contentData={contentData}
                 addToTheCart={addToTheCart}
-                specifyColorAndSize={specifyColorAndSize}
-                
               />
             }
           />
-
-          <Route 
-            path="*" 
-            element={<Page404 />} 
+          <Route
+            path="*"
+            element={<Page404 />}
           />
         </Routes>
-
       </div>
-
       <Footer />
-
       <GoUp />
-
-      <CartPopup 
-        cartContentData={cartContentData} 
+      <CartPopup
+        cartContentData={cartContentData}
         setCartContentData={setCartContentData}
         decreaseItemsCount={decreaseItemsCount}
         addToTheCart={addToTheCart}
-        itemColorAndSize={itemColorAndSize}/>
-        
+      />
     </BrowserRouter>
   );
 }
