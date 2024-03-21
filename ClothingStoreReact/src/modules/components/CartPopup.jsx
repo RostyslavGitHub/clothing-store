@@ -2,8 +2,6 @@ import React from "react";
 
 const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart }) => {
 
-  
-
   const removeCart = () => {
     const cartPopup = document.querySelector(".cart-container");
     cartPopup.classList.remove("active--cart");

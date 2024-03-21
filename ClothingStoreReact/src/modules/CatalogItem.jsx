@@ -29,10 +29,15 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
         return colors;
       }, []);
 
-    useEffect(() => {
-        handleColorToggle(colorsButtons[0], 0)
-        setSelectedSize(0);
-    }, [catalogItemTitle]);
+      useEffect(() => {
+        const newSelectedItem = contentData.find(item => item.title === catalogItemTitle);
+        if (newSelectedItem) {
+            setSelectedItem([newSelectedItem]);
+            setCheckedColor(newSelectedItem.colors[0]);
+            setSelectedColor(0);
+            setSelectedSize(0);
+        }
+    }, [catalogItemTitle, contentData]);
 
     useEffect(() => {
         setSelectedItem(contentData.filter((item) => item.title === catalogItemTitle))
@@ -93,10 +98,6 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
             return updatedItems;
         });
     };
-    
-    const handleSizeChange = (sizeIndex) => {
-        handleSizeToggle(sizeIndex);
-    };
 
     const getColorId = (item, color) => {
         const colorIdMap = item.colorIdMap || {};
@@ -115,7 +116,7 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
     
     const isColorChecked = (color) => {
         return checkedColor === color;
-    };
+    };    
     
     return (
         <>
@@ -143,22 +144,27 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
                             <div className="color-row">
                                 <h3 className="option-title">Colors:</h3>
                                 <div className="color-checkbox-row">
-                                    {colorsButtons.map((colorButton, index) => (
-                                        <div key={colorButton}>
-                                            <input
-                                                onChange={() => handleColorToggle(colorButton, index)}
-                                                checked={isColorChecked(colorButton)}
-                                                className="color__checkbox"
-                                                type="radio"
-                                                name="color"
-                                                id={colorButton}
-                                            />
-                                            <label
-                                                htmlFor={colorButton}
-                                                style={{ backgroundColor: colorButton }}
-                                            />
-                                        </div>
-                                    ))}
+                                {colorsButtons.map((colorButton, index) => (
+                                    <div key={colorButton}>
+                                        <input
+                                            onChange={() => handleColorToggle(colorButton, index)}
+                                            checked={isColorChecked(colorButton)}
+                                            className="color__checkbox"
+                                            type="radio"
+                                            name="color"
+                                            id={colorButton}
+                                        />
+                                        <label
+                                            htmlFor={colorButton}
+                                            style={{ backgroundColor: colorButton }}
+                                        >
+                                            {isColorChecked(colorButton) && (
+                                                <span>&#10003;</span>
+                                            )}
+                                        </label>
+                                    </div>
+                                ))}
+
                                 </div>
                             </div>
 

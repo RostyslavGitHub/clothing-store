@@ -67,10 +67,6 @@ const Content = ({contentData, contentTitle, isButtonThere, isNavThere }) => {
     setCatalogData(filteredData);
   };
 
-  const handleCategoryClick = (category) => {
-    setActiveButton(category);
-  };
-
   const handleColorToggle = (color) => {
     let newColors = [...checkedColors];
     if (newColors.includes(color)) {
@@ -99,7 +95,7 @@ const Content = ({contentData, contentTitle, isButtonThere, isNavThere }) => {
                   ? "content__nav-option active-content__nav-option"
                   : "content__nav-option"
               }
-              onClick={() => handleCategoryClick("All")}
+              onClick={() => setActiveButton("All")}
             >
               All
             </button>
@@ -112,7 +108,7 @@ const Content = ({contentData, contentTitle, isButtonThere, isNavThere }) => {
                     ? "content__nav-option active-content__nav-option"
                     : "content__nav-option"
                 }
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => setActiveButton(category)}
               >
                 {category}
               </button>
@@ -124,7 +120,7 @@ const Content = ({contentData, contentTitle, isButtonThere, isNavThere }) => {
                   ? "content__nav-option active-content__nav-option"
                   : "content__nav-option"
               }
-              onClick={() => handleCategoryClick("Sale")}
+              onClick={() => setActiveButton("Sale")}
             >
               Sale
             </button>
