@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, addToTheCart }) => {
+  const [checkoutOrder, setCheckoutOrder] = useState()
 
   const removeCart = () => {
     const cartPopup = document.querySelector(".cart-container");
@@ -47,7 +48,6 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
     );
 
     content = uniqueItems.map((item, index) => {
-
       return (
         <div key={item.id} className="cart__item">
           <img src={"../images/" + item.images[[item.choosenColor]][0]} alt={item.title} className="cart__img" />
@@ -69,7 +69,7 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
                 </div>
               </div>
             </div>
-            <div className="cart__size">Size: {item.choosenSize}</div>
+            <div className="cart__size">Size: {item.choosenSize ? item.choosenSize : item.sizes[0]}</div>
             <div className="cart__quantity-price-row">
               <div className="cart__quantity">
                 <button className="cart__quantity-sqr" onClick={() => decreaseItemsCount(item.id)}>-</button>
@@ -98,8 +98,10 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
         </div>
       );
     });
-  } else {
+  } else if (!checkoutOrder){
     content = <p className="cart__no-items-title">No items yet</p>;
+  } else{
+    content = checkoutOrder;
   }
 
   const deleteItem = (itemId) => {
@@ -122,34 +124,69 @@ const CartPopup = ({ cartContentData, setCartContentData, decreaseItemsCount, ad
     return totalPrice.toFixed(2).replace(".", ",");
   }
 
+  const totalPrice = calculateTotalPrice();
+
+  const checkout = () =>{ 
+    setCheckoutOrder(
+      <>
+      <p className="cart__title">
+        Hi, this site is a portfolio project, <br /> 
+        and not an actual shop. <br />
+        But here is how the order would look like:
+      </p>
+      {cartContentData.map((item, index )=>
+      <ul key={index}>
+        <br />
+        <li>item: {item.title}</li>
+        <li>color: {item.colors[item.choosenColor]}</li>
+        <li>size:  {item.choosenSize ? item.choosenSize : item.sizes[0]}</li>
+        <li>price: {item.sale ? item.sale : item.price}</li>
+      </ul>)}
+      </>
+    )
+    console.log(cartContentData);
+    setCartContentData([])
+    localStorage.setItem('cartContentData', JSON.stringify([]));
+    
+  }
+
   return (
-    <div className="cart-container" onClick={(event) => hideCartContainer(event)}>
-      <div className="cart" onClick={(event) => event.stopPropagation()}>
-        <div>
-          <div className="cart__header">
-            <h2 className="cart__main-title">Cart</h2>
-            <div onClick={removeCart} className="cart__close-icon">
-              <svg
-                width={36}
-                height={36}
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-              </svg>
+    <>
+      <div className="cart-container" onClick={(event) => hideCartContainer(event)}>
+        <div className="cart" onClick={(event) => event.stopPropagation()}>
+          <div>
+            <div className="cart__header">
+              <h2 className="cart__main-title">Cart</h2>
+              <div onClick={removeCart} className="cart__close-icon">
+                <svg
+                  width={36}
+                  height={36}
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                </svg>
+              </div>
             </div>
+            <div className="shipping-info">Free shipping from €150</div>
+            <div className="cart__items-row">{content}</div>
           </div>
-          <div className="shipping-info">Free shipping from €150</div>
-          <div className="cart__items-row">{content}</div>
-        </div>
-        <div className="cart__checkout">
-          <div className="total-price">
-            <div>Total price: </div> <div>€{calculateTotalPrice()}</div>
+          <div className="cart__checkout">
+            <div className="total-price">
+              <div>Total price: </div> <div>€{totalPrice}</div>
+            </div>
+            <button 
+            className={ totalPrice !== "0,00" ? "button" : "button disable-button"} 
+            disabled={totalPrice === "0,00"}
+            type="button" 
+            onClick={checkout}
+            
+            >Checkout</button>
           </div>
-          <button className="button">Checkout</button>
         </div>
       </div>
-    </div>
+    </>
+    
   );
 };
 

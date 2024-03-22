@@ -97,6 +97,10 @@ body {
   min-width: 360px;
 }
 
+embed{
+  width: 100%;
+  height: calc(100vh - 130px);
+}
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -887,7 +891,7 @@ textarea:focus {
 
 /* cart */
 
-.cart-container {
+.cart-container{
   width: 100%;
   height: 100%;
   top: 0;
@@ -902,7 +906,7 @@ textarea:focus {
 }
 
 .cart {
-  margin: 100px 20px 20px 20px;
+  margin: 100px 20px 60px 20px;
   border: 1px solid #6100ff;
   width: 500px;
   height: 80%;

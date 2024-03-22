@@ -1,4 +1,15 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
+  const scrollToTop = () => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (c > 0) {
+      window.requestAnimationFrame(scrollToTop);
+      window.scrollTo(0,c - c / 8);
+    }
+  };
+
     return (
       <>
         <footer className="footer">
@@ -37,9 +48,9 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a className="footer__link" href="Rostyslav  Zhuravel's resume.pdf" download>
+              <Link to="/resume" onClick={scrollToTop} className="footer__link" href="Zhuravel Rostyslav's resume.pdf" download>
                 The resume of the developer
-              </a>
+              </Link>
             </li>
           </ul>
         </footer>

@@ -17,7 +17,7 @@ export const contentData = [
         white: { id: generateUniqueID(), count: 0 },
         dimgray: { id: generateUniqueID(), count: 0 }
     },
-    choosenColor: 'white',
+    choosenColor: 0,
 },
 
   {
@@ -39,7 +39,7 @@ export const contentData = [
       black: { id: generateUniqueID(), count: 0 },
       burlywood: { id: generateUniqueID(), count: 0 }
   },
-  choosenColor: 'black',
+  choosenColor: 0,
   },
   {
     title: "Casual V-Neck T-shirt",
@@ -59,7 +59,7 @@ export const contentData = [
         dimgray: { id: generateUniqueID(), count: 0 },
         green: { id: generateUniqueID(), count: 0 },
     },
-    choosenColor: 'white',
+    choosenColor: 0,
   },
   {
     title: "Basic Pullover Hoodie",
@@ -77,7 +77,7 @@ export const contentData = [
       sienna: { id: generateUniqueID(), count: 0 },
       orangered: { id: generateUniqueID(), count: 0 }
     },
-    choosenColor: 'sienna',
+    choosenColor: 0,
 
     sale: "39.99",
     bestseller: true,
@@ -96,7 +96,7 @@ export const contentData = [
     colorIdMap: {
       black: { id: generateUniqueID(), count: 0 },
     },
-    choosenColor: 'black',
+    choosenColor: 0,
   },
   {
     title: "Classic Denim Shirt",
@@ -114,7 +114,7 @@ export const contentData = [
       green: { id: generateUniqueID(), count: 0 },
       orange: { id: generateUniqueID(), count: 0 }
     },
-    choosenColor: 'green',
+    choosenColor: 0,
   },
   {
     title: "Flannel Plaid Shirt",
@@ -132,7 +132,7 @@ export const contentData = [
       mediumblue: { id: generateUniqueID(), count: 0 },
       green: { id: generateUniqueID(), count: 0 }
     },
-    choosenColor: 'mediumblue',
+    choosenColor: 0,
 
     sale: "29.99",
   },

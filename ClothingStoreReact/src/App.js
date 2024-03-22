@@ -8,6 +8,7 @@ import CatalogItemPage from "./modules/CatalogItem";
 import Page404 from "./modules/Page404";
 import CartPopup from "./modules/components/CartPopup";
 import GoUp from "./modules/components/GoUp";
+import Resume from "./modules/Resume";
 import { contentData } from "./data";
 import "./styles.css";
 
@@ -94,6 +95,10 @@ function App() {
                 addToTheCart={addToTheCart}
               />
             }
+          />
+          <Route
+            path="/resume"
+            element={<Resume />}
           />
           <Route
             path="*"

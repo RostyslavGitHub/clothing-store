@@ -158,9 +158,6 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
                                             htmlFor={colorButton}
                                             style={{ backgroundColor: colorButton }}
                                         >
-                                            {isColorChecked(colorButton) && (
-                                                <span>&#10003;</span>
-                                            )}
                                         </label>
                                     </div>
                                 ))}
