@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StarsBelt from './components/StarsBelt'
 import Content from './components/Content'
 import Reviews from "./components/Reviews";
 
 const CatalogItemPage = ({contentData, addToTheCart}) => {
     const { catalogItemTitle } = useParams();
+    const navigate = useNavigate()
     const [checkedColor, setCheckedColor] = useState();
     const [selectedColor, setSelectedColor] = useState(0);
     const [selectedSize, setSelectedSize] = useState(0);
     const [selectedItem, setSelectedItem] = useState(contentData.filter((item) => item.title === catalogItemTitle))
+
+    useEffect(() => {
+        const newItem = contentData.find((item) => item.title === catalogItemTitle);
+        if (newItem) {
+          setSelectedItem([newItem]);
+          setCheckedColor(newItem.colors[0]);
+          setSelectedColor(0);
+          setSelectedSize(0);
+        } else {
+          navigate("/page404");
+        }
+      }, [catalogItemTitle, contentData, navigate]);
 
     const sizesOptions = selectedItem.reduce((availableSizes, item) => {
       item.sizes.forEach(size => {
@@ -28,20 +41,6 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
         });
         return colors;
       }, []);
-
-      useEffect(() => {
-        const newSelectedItem = contentData.find(item => item.title === catalogItemTitle);
-        if (newSelectedItem) {
-            setSelectedItem([newSelectedItem]);
-            setCheckedColor(newSelectedItem.colors[0]);
-            setSelectedColor(0);
-            setSelectedSize(0);
-        }
-    }, [catalogItemTitle, contentData]);
-
-    useEffect(() => {
-        setSelectedItem(contentData.filter((item) => item.title === catalogItemTitle))
-    }, [catalogItemTitle, contentData]);
 
     const handleColorToggle = (color, index) => {
         setCheckedColor(color);
@@ -117,6 +116,10 @@ const CatalogItemPage = ({contentData, addToTheCart}) => {
     const isColorChecked = (color) => {
         return checkedColor === color;
     };    
+
+    if (selectedItem.length === 0) {
+        return null;
+      }
     
     return (
         <>
